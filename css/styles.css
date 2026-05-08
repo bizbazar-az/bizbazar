@@ -937,10 +937,73 @@ body.mobile-menu-open .nav-toggle span:nth-child(1) { transform: translateY(7.5p
 body.mobile-menu-open .nav-toggle span:nth-child(2) { opacity: 0; }
 body.mobile-menu-open .nav-toggle span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-.nav-wrap {
-  display: contents;
+/* Mobile drawer rendered OUTSIDE the header to escape backdrop-filter
+   containing block on iOS Safari. Hidden on desktop. */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(86vw, 360px);
+  background: white;
+  flex-direction: column;
+  padding: 0 0 24px;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  z-index: 1001;
+  overflow-y: auto;
+  box-shadow: -16px 0 48px rgba(0,0,0,.18);
+  -webkit-overflow-scrolling: touch;
 }
-.nav-overlay { display: none; }
+.nav-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid #f1f5f9;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 2;
+}
+.nav-drawer-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-drawer-close {
+  border: 0;
+  background: #f1f5f9;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-drawer-close:hover { background: #e2e8f0; }
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  z-index: 1000;
+}
+body.mobile-menu-open .nav-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hide mobile-only chunks on desktop */
+.nav-mobile, .header-actions-mobile { display: none; }
 
 @media (max-width: 960px) {
   .hero h1 { font-size: 36px; }
@@ -956,73 +1019,52 @@ body.mobile-menu-open .nav-toggle span:nth-child(3) { transform: translateY(-7.5
   .cta-band { grid-template-columns: 1fr; padding: 32px; text-align: left; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
-  /* Show hamburger; hide nav-wrap by default; mount as drawer when open */
+  /* Hide desktop nav and CTAs */
+  .nav-desktop { display: none; }
+  .header-actions-desktop { display: none; }
+
+  /* Show hamburger and drawer */
   .nav-toggle { display: flex; }
-  .nav-wrap {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; right: 0; bottom: 0;
-    width: min(86vw, 360px);
-    background: white;
-    padding: 80px 24px 24px;
-    transform: translateX(100%);
-    transition: transform .3s cubic-bezier(.4,0,.2,1);
-    z-index: 101;
-    overflow-y: auto;
-    box-shadow: -16px 0 48px rgba(0,0,0,.18);
-    gap: 0;
-  }
-  body.mobile-menu-open .nav-wrap { transform: translateX(0); }
+  .nav-drawer { display: flex; }
+  .nav-overlay { display: block; }
 
-  .nav-overlay {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(15,23,42,.45);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .3s ease;
-    z-index: 100;
-  }
-  body.mobile-menu-open .nav-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
   body.mobile-menu-open { overflow: hidden; }
+  body.mobile-menu-open .nav-drawer { transform: translateX(0); }
 
-  .nav {
-    display: flex;
+  .nav-mobile {
+    display: flex !important;
     flex-direction: column;
-    gap: 0;
     align-items: stretch;
+    padding: 8px 22px 0;
+    gap: 0;
     flex: none;
     justify-content: flex-start;
   }
-  .nav a {
+  .nav-mobile a {
     padding: 14px 4px;
     border-bottom: 1px solid #f1f5f9;
     font-size: 16px;
     font-weight: 600;
     color: var(--text);
+    display: block;
   }
-  .nav a.active {
+  .nav-mobile a.active {
     color: var(--primary);
-    border-bottom-color: var(--primary);
   }
 
-  .header-actions {
+  .header-actions-mobile {
+    display: flex !important;
     flex-direction: column;
     align-items: stretch;
     gap: 14px;
-    margin-top: 24px;
-    padding-top: 24px;
+    margin: 22px 22px 0;
+    padding-top: 18px;
     border-top: 2px solid #f1f5f9;
   }
-  .lang-switch {
+  .header-actions-mobile .lang-switch {
     align-self: flex-start;
   }
-  .header-actions .btn-primary {
+  .header-actions-mobile .btn-primary {
     width: 100%;
     text-align: center;
     padding: 14px;

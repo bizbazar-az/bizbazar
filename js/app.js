@@ -835,34 +835,58 @@ function renderHeader(activePage) {
         <span class="logo-mark">B</span>
         <span>BizBazar<span style="color: var(--accent)">.az</span></span>
       </a>
+      <nav class="nav nav-desktop">
+        <a href="index.html" class="${activePage === 'home' ? 'active' : ''}" data-i18n="nav_home"></a>
+        <a href="listings.html" class="${activePage === 'listings' ? 'active' : ''}" data-i18n="nav_browse"></a>
+        <a href="franchises.html" class="${activePage === 'franchises' ? 'active' : ''}" data-i18n="nav_franchises"></a>
+        <a href="investors.html" class="${activePage === 'investors' ? 'active' : ''}" data-i18n="nav_investors"></a>
+        <a href="brokers.html" class="${activePage === 'brokers' ? 'active' : ''}">Brokerlər</a>
+        <a href="services.html" class="${activePage === 'services' ? 'active' : ''}" data-i18n="nav_services"></a>
+        <a href="sell.html" class="${activePage === 'sell' ? 'active' : ''}" data-i18n="nav_sell"></a>
+        <a href="map.html" class="${activePage === 'map' ? 'active' : ''}" data-i18n="nav_map"></a>
+        <a href="valuation.html" class="${activePage === 'valuation' ? 'active' : ''}" data-i18n="nav_valuation"></a>
+        <a href="favorites.html" class="${activePage === 'favorites' ? 'active' : ''}">♥ <span data-i18n="nav_favorites"></span>${getFavorites().length > 0 ? ` <span class="fav-count">${getFavorites().length}</span>` : ''}</a>
+      </nav>
+      <div class="header-actions header-actions-desktop">
+        <div class="lang-switch">
+          <button data-lang="az">AZ</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="ru">RU</button>
+        </div>
+        <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
+      </div>
       <button class="nav-toggle" aria-label="Menyu" aria-expanded="false" onclick="document.body.classList.toggle('mobile-menu-open');this.setAttribute('aria-expanded',document.body.classList.contains('mobile-menu-open'))">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-wrap">
-        <nav class="nav" onclick="if(event.target.tagName==='A')document.body.classList.remove('mobile-menu-open')">
-          <a href="index.html" class="${activePage === 'home' ? 'active' : ''}" data-i18n="nav_home"></a>
-          <a href="listings.html" class="${activePage === 'listings' ? 'active' : ''}" data-i18n="nav_browse"></a>
-          <a href="franchises.html" class="${activePage === 'franchises' ? 'active' : ''}" data-i18n="nav_franchises"></a>
-          <a href="investors.html" class="${activePage === 'investors' ? 'active' : ''}" data-i18n="nav_investors"></a>
-          <a href="brokers.html" class="${activePage === 'brokers' ? 'active' : ''}">Brokerlər</a>
-          <a href="services.html" class="${activePage === 'services' ? 'active' : ''}" data-i18n="nav_services"></a>
-          <a href="sell.html" class="${activePage === 'sell' ? 'active' : ''}" data-i18n="nav_sell"></a>
-          <a href="map.html" class="${activePage === 'map' ? 'active' : ''}" data-i18n="nav_map"></a>
-          <a href="valuation.html" class="${activePage === 'valuation' ? 'active' : ''}" data-i18n="nav_valuation"></a>
-          <a href="favorites.html" class="${activePage === 'favorites' ? 'active' : ''}">♥ <span data-i18n="nav_favorites"></span>${getFavorites().length > 0 ? ` <span class="fav-count">${getFavorites().length}</span>` : ''}</a>
-        </nav>
-        <div class="header-actions">
-          <div class="lang-switch">
-            <button data-lang="az">AZ</button>
-            <button data-lang="en">EN</button>
-            <button data-lang="ru">RU</button>
-          </div>
-          <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
-        </div>
-      </div>
-      <div class="nav-overlay" onclick="document.body.classList.remove('mobile-menu-open')"></div>
     </div>
-  </header>`;
+  </header>
+  <div class="nav-overlay" onclick="document.body.classList.remove('mobile-menu-open')"></div>
+  <aside class="nav-drawer" aria-label="Mobil menyu">
+    <div class="nav-drawer-head">
+      <span class="nav-drawer-title">Menyu</span>
+      <button class="nav-drawer-close" aria-label="Bağla" onclick="document.body.classList.remove('mobile-menu-open')">✕</button>
+    </div>
+    <nav class="nav nav-mobile" onclick="if(event.target.tagName==='A')document.body.classList.remove('mobile-menu-open')">
+      <a href="index.html" class="${activePage === 'home' ? 'active' : ''}" data-i18n="nav_home"></a>
+      <a href="listings.html" class="${activePage === 'listings' ? 'active' : ''}" data-i18n="nav_browse"></a>
+      <a href="franchises.html" class="${activePage === 'franchises' ? 'active' : ''}" data-i18n="nav_franchises"></a>
+      <a href="investors.html" class="${activePage === 'investors' ? 'active' : ''}" data-i18n="nav_investors"></a>
+      <a href="brokers.html" class="${activePage === 'brokers' ? 'active' : ''}">Brokerlər</a>
+      <a href="services.html" class="${activePage === 'services' ? 'active' : ''}" data-i18n="nav_services"></a>
+      <a href="sell.html" class="${activePage === 'sell' ? 'active' : ''}" data-i18n="nav_sell"></a>
+      <a href="map.html" class="${activePage === 'map' ? 'active' : ''}" data-i18n="nav_map"></a>
+      <a href="valuation.html" class="${activePage === 'valuation' ? 'active' : ''}" data-i18n="nav_valuation"></a>
+      <a href="favorites.html" class="${activePage === 'favorites' ? 'active' : ''}">♥ <span data-i18n="nav_favorites"></span>${getFavorites().length > 0 ? ` <span class="fav-count">${getFavorites().length}</span>` : ''}</a>
+    </nav>
+    <div class="header-actions header-actions-mobile">
+      <div class="lang-switch">
+        <button data-lang="az">AZ</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ru">RU</button>
+      </div>
+      <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
+    </div>
+  </aside>`;
 }
 
 function renderFooter() {
