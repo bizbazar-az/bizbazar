@@ -201,7 +201,7 @@
       <div class="price-usd">${fmtUSD(l.price_azn)}</div>
       <div class="divider"></div>
       <button class="btn btn-primary btn-lg" data-i18n="detail_nda"></button>
-      <button class="btn btn-outline" data-i18n="detail_contact"></button>
+      <button class="btn btn-accent btn-lg" id="contact-seller-btn" style="width:100%;margin-top:8px" data-i18n="detail_contact"></button>
       ${contactHTML}
     </div>
     <div class="services-hint">
@@ -213,10 +213,33 @@
 
   applyI18n();
 
-  document.querySelectorAll(".price-card .btn").forEach(b => {
-    b.addEventListener("click", () => alert(getLang()==="az"
-      ? "Bu demo versiyadır. Tam versiyada satıcı ilə əlaqə burada aktiv olacaq."
-      : "This is a demo. In full version, contacting seller will be enabled here."));
+  // NDA button (demo)
+  right.querySelector("[data-i18n='detail_nda']").addEventListener("click", () => {
+    alert(getLang()==="az"
+      ? "NDA imzalamaq üçün hesabınıza daxil olun."
+      : getLang()==="en"
+      ? "Please sign in to sign the NDA."
+      : "Войдите в аккаунт, чтобы подписать NDA.");
+  });
+
+  // Contact seller — auth-gated
+  document.getElementById("contact-seller-btn").addEventListener("click", async () => {
+    try {
+      const { auth, onAuthStateChanged, getOrCreateConversation, getProfile } = await import("./js/firebase.js");
+      const user = auth.currentUser;
+      if (!user) {
+        location.href = "auth.html?returnTo=" + encodeURIComponent(location.href);
+        return;
+      }
+      // seller UID: use listing's seller_uid field if present, else use listingId as placeholder key
+      const sellerUid = l.seller_uid || ("seller_" + l.id);
+      const listingTitle = locField(l, "title") || l.title_az || l.id;
+      const convId = await getOrCreateConversation(user.uid, sellerUid, l.id, listingTitle);
+      location.href = "messages.html?conv=" + convId;
+    } catch(e) {
+      // Firebase not configured — redirect to auth
+      location.href = "auth.html?returnTo=" + encodeURIComponent(location.href);
+    }
   });
 
   // E) Similar listings

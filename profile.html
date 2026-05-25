@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BizBazar.az — Profilim</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>(function(){if(localStorage.getItem('bb_darkmode')==='1')document.documentElement.setAttribute('data-theme','dark')})()</script>
+  <style>
+    .profile-page { padding: 48px 0 80px; }
+    .profile-hero {
+      background: var(--primary);
+      padding: 48px 0 80px;
+    }
+    .profile-hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .avatar-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      border: 3px solid rgba(255,255,255,.3);
+    }
+    .profile-hero-info { flex: 1; min-width: 0; }
+    .profile-display-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .profile-phone {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+    }
+    .profile-hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-white {
+      background: white;
+      color: var(--primary);
+      border: none;
+      border-radius: var(--radius);
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-white:hover { opacity: .88; }
+    .btn-ghost-white {
+      background: rgba(255,255,255,.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: var(--radius);
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.2); }
+    .profile-content {
+      margin-top: -40px;
+      position: relative;
+      z-index: 2;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media(max-width:768px) {
+      .profile-grid { grid-template-columns: 1fr; }
+    }
+    .profile-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .profile-card-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--primary);
+    }
+    .profile-stat-list { padding: 8px 0; }
+    .profile-stat-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: background .15s;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .profile-stat-item:last-child { border-bottom: none; }
+    .profile-stat-item:hover { background: var(--bg-soft); }
+    .profile-stat-item .label { color: var(--text-muted); }
+    .profile-stat-item .value { font-weight: 600; color: var(--primary); }
+    .profile-stat-item .arrow { color: var(--text-light); font-size: 18px; }
+    .edit-form { padding: 20px; }
+    .edit-field { margin-bottom: 16px; }
+    .edit-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .edit-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      transition: border-color .2s;
+    }
+    .edit-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,39,68,.07); }
+    .edit-input:disabled { background: var(--bg-soft); color: var(--text-muted); cursor: not-allowed; }
+    .save-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+    }
+    .save-btn:hover { background: var(--primary-light); }
+    .save-btn:disabled { opacity: .55; cursor: not-allowed; }
+    .save-success {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--success);
+      font-size: 13px;
+      margin-left: 12px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .save-success.show { opacity: 1; }
+    .member-since {
+      font-size: 12px;
+      color: rgba(255,255,255,.5);
+      margin-top: 6px;
+    }
+    .skeleton {
+      background: rgba(255,255,255,.12);
+      border-radius: 6px;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0%,100% { opacity: .4; }
+      50% { opacity: .8; }
+    }
+    .logout-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.8);
+      border-radius: var(--radius);
+      padding: 9px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+    }
+    .logout-btn:hover { background: rgba(255,255,255,.12); }
+    #profile-loading {
+      text-align: center;
+      padding: 80px 0;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div id="header-mount"></div>
+
+<div id="profile-loading">
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="animation:spin .8s linear infinite;display:inline-block">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+  </svg>
+</div>
+
+<div id="profile-main" style="display:none">
+  <!-- Hero -->
+  <div class="profile-hero">
+    <div class="container">
+      <div class="profile-hero-inner">
+        <div class="avatar-circle" id="avatar-circle">?</div>
+        <div class="profile-hero-info">
+          <div class="profile-display-name" id="hero-name">—</div>
+          <div class="profile-phone" id="hero-phone">—</div>
+          <div class="member-since" id="hero-joined"></div>
+        </div>
+        <div class="profile-hero-actions">
+          <a href="messages.html" class="btn-white" id="btn-messages">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span id="btn-messages-label">Mesajlar</span>
+          </a>
+          <button class="logout-btn" onclick="handleLogout()" id="logout-btn">
+            <span id="logout-label">Çıxış</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="profile-page">
+    <div class="container">
+      <div class="profile-content">
+        <div class="profile-grid">
+
+          <!-- Sidebar stats -->
+          <div>
+            <div class="profile-card">
+              <div class="profile-card-head" id="sidebar-title">Hesabım</div>
+              <div class="profile-stat-list">
+                <a href="favorites.html" class="profile-stat-item">
+                  <span class="label" id="stat-favs-label">Saxlanmış elanlar</span>
+                  <span style="display:flex;align-items:center;gap:8px">
+                    <span class="value" id="stat-favs-count">—</span>
+                    <span class="arrow">›</span>
+                  </span>
+                </a>
+                <a href="messages.html" class="profile-stat-item">
+                  <span class="label" id="stat-msgs-label">Mesajlar</span>
+                  <span style="display:flex;align-items:center;gap:8px">
+                    <span class="value" id="stat-msgs-count">—</span>
+                    <span class="arrow">›</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Edit profile -->
+          <div>
+            <div class="profile-card">
+              <div class="profile-card-head" id="edit-title">Profili redaktə et</div>
+              <div class="edit-form">
+                <div class="edit-field">
+                  <label class="edit-label" id="lbl-name" for="edit-name">Ad</label>
+                  <input class="edit-input" type="text" id="edit-name" autocomplete="name">
+                </div>
+                <div class="edit-field">
+                  <label class="edit-label" id="lbl-phone" for="edit-phone">Telefon</label>
+                  <input class="edit-input" type="tel" id="edit-phone" disabled>
+                </div>
+                <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+                  <button class="save-btn" onclick="handleSave()" id="save-btn">
+                    <span id="save-btn-label">Saxla</span>
+                  </button>
+                  <span class="save-success" id="save-success">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span id="save-success-msg">Yadda saxlandı</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-mount"></div>
+<script src="js/app.js"></script>
+<script type="module">
+  import {
+    auth, db, onAuthStateChanged, signOut,
+    getProfile, createOrUpdateProfile,
+    getFirestoreFavorites, listenConversations
+  } from "./js/firebase.js";
+  import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  mountLayout("profile");
+
+  const TX = {
+    az: {
+      btn_messages: "Mesajlar", logout: "Çıxış", sidebar_title: "Hesabım",
+      stat_favs: "Saxlanmış elanlar", stat_msgs: "Mesajlar",
+      edit_title: "Profili redaktə et", lbl_name: "Ad", lbl_phone: "Telefon",
+      save: "Saxla", saved: "Yadda saxlandı",
+      joined: "Qoşuldu", unread: "oxunmamış", conversation: "söhbət"
+    },
+    en: {
+      btn_messages: "Messages", logout: "Sign out", sidebar_title: "My account",
+      stat_favs: "Saved listings", stat_msgs: "Messages",
+      edit_title: "Edit profile", lbl_name: "Name", lbl_phone: "Phone",
+      save: "Save", saved: "Saved",
+      joined: "Joined", unread: "unread", conversation: "conversation"
+    },
+    ru: {
+      btn_messages: "Сообщения", logout: "Выйти", sidebar_title: "Мой аккаунт",
+      stat_favs: "Сохранённые объявления", stat_msgs: "Сообщения",
+      edit_title: "Редактировать профиль", lbl_name: "Имя", lbl_phone: "Телефон",
+      save: "Сохранить", saved: "Сохранено",
+      joined: "Зарегистрирован", unread: "непрочитанных", conversation: "беседа"
+    }
+  };
+  function tx(key) {
+    const lang = localStorage.getItem("bb_lang") || "az";
+    return (TX[lang] && TX[lang][key]) || TX.az[key] || key;
+  }
+  function applyProfileTX() {
+    document.getElementById("btn-messages-label").textContent = tx("btn_messages");
+    document.getElementById("logout-label").textContent       = tx("logout");
+    document.getElementById("sidebar-title").textContent      = tx("sidebar_title");
+    document.getElementById("stat-favs-label").textContent    = tx("stat_favs");
+    document.getElementById("stat-msgs-label").textContent    = tx("stat_msgs");
+    document.getElementById("edit-title").textContent         = tx("edit_title");
+    document.getElementById("lbl-name").textContent           = tx("lbl_name");
+    document.getElementById("lbl-phone").textContent          = tx("lbl_phone");
+    document.getElementById("save-btn-label").textContent     = tx("save");
+    document.getElementById("save-success-msg").textContent   = tx("saved");
+  }
+
+  function getInitials(name) {
+    if (!name) return "?";
+    return name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+  }
+
+  function fmtJoined(ts) {
+    if (!ts) return "";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const lang = localStorage.getItem("bb_lang") || "az";
+    const locales = { az: "az-AZ", en: "en-GB", ru: "ru-RU" };
+    return tx("joined") + ": " + d.toLocaleDateString(locales[lang] || "az-AZ", { month: "long", year: "numeric" });
+  }
+
+  onAuthStateChanged(auth, async user => {
+    document.getElementById("profile-loading").style.display = "none";
+    if (!user) {
+      location.href = "auth.html?returnTo=profile.html";
+      return;
+    }
+
+    document.getElementById("profile-main").style.display = "block";
+    applyProfileTX();
+
+    // load profile
+    const profile = await getProfile(user.uid);
+    const name = profile?.displayName || user.phoneNumber;
+    const color = profile?.avatarColor || "#1a2744";
+
+    document.getElementById("hero-name").textContent      = name;
+    document.getElementById("hero-phone").textContent     = user.phoneNumber;
+    document.getElementById("hero-joined").textContent    = fmtJoined(profile?.createdAt);
+    document.getElementById("edit-name").value            = profile?.displayName || "";
+    document.getElementById("edit-phone").value           = user.phoneNumber;
+
+    const av = document.getElementById("avatar-circle");
+    av.style.background = color;
+    av.textContent = getInitials(name);
+
+    // favorites count
+    try {
+      const favs = await getFirestoreFavorites(user.uid);
+      document.getElementById("stat-favs-count").textContent = favs.length;
+    } catch(e) {
+      document.getElementById("stat-favs-count").textContent = "—";
+    }
+
+    // conversation count
+    listenConversations(user.uid, convs => {
+      document.getElementById("stat-msgs-count").textContent = convs.length;
+    });
+  });
+
+  window.handleSave = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+    const name = document.getElementById("edit-name").value.trim();
+    const btn  = document.getElementById("save-btn");
+    btn.disabled = true;
+    document.getElementById("save-btn-label").textContent = "...";
+    try {
+      await createOrUpdateProfile(user.uid, { displayName: name || user.phoneNumber });
+      document.getElementById("hero-name").textContent = name || user.phoneNumber;
+      const av = document.getElementById("avatar-circle");
+      av.textContent = getInitials(name || user.phoneNumber);
+      const ok = document.getElementById("save-success");
+      ok.classList.add("show");
+      setTimeout(() => ok.classList.remove("show"), 2500);
+    } finally {
+      btn.disabled = false;
+      document.getElementById("save-btn-label").textContent = tx("save");
+    }
+  };
+
+  window.handleLogout = async function() {
+    await signOut(auth);
+    location.href = "index.html";
+  };
+</script>
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</body>
+</html>

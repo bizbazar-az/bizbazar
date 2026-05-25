@@ -874,6 +874,15 @@ function renderHeader(activePage) {
           <button data-lang="en">EN</button>
           <button data-lang="ru">RU</button>
         </div>
+        <div id="header-auth-desktop" style="display:flex;align-items:center;gap:8px">
+          <a href="auth.html" class="btn btn-outline btn-sm" id="hdr-signin-desktop" data-i18n="cta_signin" style="display:none"></a>
+          <a href="profile.html" class="header-user-btn" id="hdr-profile-desktop" style="display:none" title="Profil">
+            <span class="header-avatar" id="hdr-avatar-desktop">?</span>
+          </a>
+          <a href="messages.html" class="header-msgs-btn" id="hdr-msgs-desktop" style="display:none" title="Mesajlar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+        </div>
         <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
       </div>
       <button class="nav-toggle" aria-label="Menyu" aria-expanded="false" onclick="document.body.classList.toggle('mobile-menu-open');this.setAttribute('aria-expanded',document.body.classList.contains('mobile-menu-open'))">
@@ -908,7 +917,16 @@ function renderHeader(activePage) {
           <button data-lang="ru">RU</button>
         </div>
       </div>
-      <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a href="auth.html" class="btn btn-outline btn-sm" id="hdr-signin-mobile" data-i18n="cta_signin" style="display:none"></a>
+        <a href="profile.html" class="header-user-btn" id="hdr-profile-mobile" style="display:none">
+          <span class="header-avatar" id="hdr-avatar-mobile">?</span>
+        </a>
+        <a href="messages.html" class="header-msgs-btn" id="hdr-msgs-mobile" style="display:none">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </a>
+        <a href="sell.html" class="btn btn-primary" data-i18n="cta_list"></a>
+      </div>
     </div>
   </aside>`;
 }
@@ -968,6 +986,56 @@ function mountLayout(activePage) {
   applyI18n();
   applyDarkMode(getDarkMode());
   mountCookiesBanner();
+  // wire auth state into header
+  _mountHeaderAuth();
+}
+
+function _mountHeaderAuth() {
+  // Dynamically import Firebase auth — only if firebase.js exists on the page
+  import("./js/firebase.js").then(({ auth, onAuthStateChanged, getProfile }) => {
+    onAuthStateChanged(auth, async user => {
+      const signinDesktop  = document.getElementById("hdr-signin-desktop");
+      const profileDesktop = document.getElementById("hdr-profile-desktop");
+      const msgsDesktop    = document.getElementById("hdr-msgs-desktop");
+      const avatarDesktop  = document.getElementById("hdr-avatar-desktop");
+      const signinMobile   = document.getElementById("hdr-signin-mobile");
+      const profileMobile  = document.getElementById("hdr-profile-mobile");
+      const msgsMobile     = document.getElementById("hdr-msgs-mobile");
+      const avatarMobile   = document.getElementById("hdr-avatar-mobile");
+
+      if (!signinDesktop) return; // header not rendered yet
+
+      if (user) {
+        if (signinDesktop)  signinDesktop.style.display  = "none";
+        if (profileDesktop) profileDesktop.style.display = "flex";
+        if (msgsDesktop)    msgsDesktop.style.display    = "flex";
+        if (signinMobile)   signinMobile.style.display   = "none";
+        if (profileMobile)  profileMobile.style.display  = "flex";
+        if (msgsMobile)     msgsMobile.style.display     = "flex";
+
+        // show initials
+        const profile = await getProfile(user.uid).catch(() => null);
+        const name = profile?.displayName || user.phoneNumber || "?";
+        const initials = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+        const color = profile?.avatarColor || "#1a2744";
+        if (avatarDesktop) { avatarDesktop.textContent = initials; avatarDesktop.style.background = color; }
+        if (avatarMobile)  { avatarMobile.textContent  = initials; avatarMobile.style.background  = color; }
+      } else {
+        if (signinDesktop)  signinDesktop.style.display  = "inline-flex";
+        if (profileDesktop) profileDesktop.style.display = "none";
+        if (msgsDesktop)    msgsDesktop.style.display    = "none";
+        if (signinMobile)   signinMobile.style.display   = "inline-flex";
+        if (profileMobile)  profileMobile.style.display  = "none";
+        if (msgsMobile)     msgsMobile.style.display     = "none";
+      }
+    });
+  }).catch(() => {
+    // Firebase not configured yet — show sign-in links
+    ["hdr-signin-desktop","hdr-signin-mobile"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "inline-flex";
+    });
+  });
 }
 
 /* ============ Cookies consent banner ============ */
