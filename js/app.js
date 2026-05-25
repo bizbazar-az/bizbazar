@@ -1865,4 +1865,114 @@ function _bbInjectCSS() {
     .bb-wa-link:hover { background: #1EBE5C; color: white; }
 
     .bb-typing .bb-bubble {
-     
+      display: inline-flex; gap: 4px; padding: 12px 14px;
+    }
+    .bb-typing .bb-bubble span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #94A3B8;
+      animation: bbType 1.2s infinite ease-in-out;
+    }
+    .bb-typing .bb-bubble span:nth-child(2) { animation-delay: .15s; }
+    .bb-typing .bb-bubble span:nth-child(3) { animation-delay: .30s; }
+    @keyframes bbType {
+      0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .bb-chat-input-wrap {
+      display: flex; gap: 8px; padding: 12px 14px;
+      border-top: 1px solid #E2E8F0; background: white;
+    }
+    .bb-chat-input {
+      flex: 1; border: 1.5px solid #E2E8F0;
+      padding: 10px 14px; border-radius: 999px;
+      font-size: 14px; outline: none;
+      font-family: inherit;
+      transition: border-color .15s;
+    }
+    .bb-chat-input:focus { border-color: #6366F1; }
+    .bb-chat-send {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 0; background: linear-gradient(135deg, #4F46E5, #6366F1);
+      color: white; font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s;
+      flex-shrink: 0;
+    }
+    .bb-chat-send:hover { transform: scale(1.06); }
+    .bb-chat-send:disabled { opacity: .4; cursor: not-allowed; }
+    .bb-chat-footer {
+      text-align: center; padding: 6px 0;
+      font-size: 10px; color: #94A3B8;
+      background: white; border-top: 1px solid #F1F5F9;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 600px) {
+      .bb-chat-panel {
+        right: 8px; left: 8px; bottom: 84px;
+        width: auto; height: calc(100vh - 110px); max-height: 600px;
+      }
+      .bb-chat-bubble { right: 16px; bottom: 16px; width: 54px; height: 54px; }
+      .bb-chat-bubble svg { width: 24px; height: 24px; }
+    }
+  `;
+  const style = document.createElement("style");
+  style.id = "bb-chatbot-css";
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
+function mountChatbot() {
+  if (document.getElementById("bb-chatbot")) return;
+  _bbInjectCSS();
+
+  const lang = (typeof getLang === "function") ? getLang() : "az";
+  const ui = CHATBOT_UI_STRINGS[lang] || CHATBOT_UI_STRINGS.az;
+
+  const wrap = document.createElement("div");
+  wrap.id = "bb-chatbot";
+  wrap.innerHTML = `
+    <button class="bb-chat-bubble" onclick="_bbToggleChat()" aria-label="AI Köməkçi">
+      <span class="bb-pulse"></span>
+      <svg class="bb-icon-chat" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-2 12H6v-2h12v2zm0-4H6V8h12v2z"/></svg>
+      <svg class="bb-icon-close" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <div class="bb-chat-panel" role="dialog" aria-label="${ui.title}">
+      <div class="bb-chat-header">
+        <div class="bb-chat-avatar">B</div>
+        <div class="bb-chat-headinfo">
+          <div class="bb-chat-title">${ui.title}</div>
+          <div class="bb-chat-status">${ui.status}</div>
+        </div>
+      </div>
+      <div class="bb-chat-messages" id="bb-chat-messages"></div>
+      <div class="bb-chat-input-wrap">
+        <input class="bb-chat-input" id="bb-chat-input" type="text"
+               placeholder="${ui.placeholder}"
+               onkeydown="if(event.key==='Enter'){_bbAsk(this.value.trim());event.preventDefault();}">
+        <button class="bb-chat-send" onclick="_bbAsk(document.getElementById('bb-chat-input').value.trim())">→</button>
+      </div>
+      <div class="bb-chat-footer">BizBazar.az · AI Köməkçi</div>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+  _bbShowWelcome();
+
+  // Re-render welcome on language change
+  window.addEventListener("langchange", () => {
+    const newLang = (typeof getLang === "function") ? getLang() : "az";
+    const newUi = CHATBOT_UI_STRINGS[newLang] || CHATBOT_UI_STRINGS.az;
+    wrap.querySelector(".bb-chat-title").textContent = newUi.title;
+    wrap.querySelector(".bb-chat-status").textContent = newUi.status;
+    wrap.querySelector(".bb-chat-input").placeholder = newUi.placeholder;
+    _bbShowWelcome();
+  });
+}
+
+// Auto-mount on page load
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mountChatbot);
+} else {
+  mountChatbot();
+}
