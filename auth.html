@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BizBazar.az — Daxil ol</title>
+  <title>BizBazar.az — Daxil ol / Qeydiyyat</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="css/styles.css">
   <script>(function(){if(localStorage.getItem('bb_darkmode')==='1')document.documentElement.setAttribute('data-theme','dark')})()</script>
@@ -13,17 +13,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg-soft);
-      padding: 40px 20px;
+      background: linear-gradient(180deg, #f5f7fb 0%, #ffffff 100%);
+      padding: 32px 18px;
     }
     .auth-card {
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-lg);
-      padding: 48px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(16,24,40,.06), 0 2px 6px rgba(16,24,40,.04);
+      padding: 36px 32px 32px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
     }
     .auth-logo {
       display: flex;
@@ -33,7 +33,7 @@
       font-weight: 700;
       color: var(--primary);
       text-decoration: none;
-      margin-bottom: 32px;
+      margin-bottom: 26px;
     }
     .auth-logo .logo-mark {
       background: var(--primary);
@@ -48,29 +48,67 @@
       font-weight: 800;
       flex-shrink: 0;
     }
+
+    /* tab switcher (tap.az style) */
+    .auth-tabs {
+      display: flex;
+      background: var(--bg-soft);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 28px;
+      gap: 4px;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .15s, color .15s;
+    }
+    .auth-tab.active {
+      background: var(--bg);
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(16,24,40,.06);
+    }
+
     .auth-step { display: none; }
     .auth-step.active { display: block; }
     .auth-title {
       font-size: 22px;
       font-weight: 700;
       color: var(--primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      letter-spacing: -.01em;
     }
     .auth-sub {
       font-size: 14px;
       color: var(--text-muted);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       line-height: 1.5;
+    }
+
+    .auth-field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
     }
     .phone-input-wrap {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .phone-prefix {
       background: var(--bg-soft);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 10px;
       padding: 0 14px;
       font-weight: 600;
       font-size: 15px;
@@ -83,19 +121,20 @@
     .phone-prefix span { font-size: 18px; }
     .auth-input {
       width: 100%;
-      padding: 12px 16px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 15px;
       font-family: inherit;
       background: var(--bg);
       color: var(--text);
-      transition: border-color .2s;
+      transition: border-color .15s, box-shadow .15s;
+      box-sizing: border-box;
     }
     .auth-input:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(26,39,68,.08);
+      box-shadow: 0 0 0 3px rgba(26,39,68,.10);
     }
     .auth-input::placeholder { color: var(--text-light); }
     .auth-btn {
@@ -104,102 +143,121 @@
       background: var(--primary);
       color: white;
       border: none;
-      border-radius: var(--radius);
+      border-radius: 10px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background .2s, opacity .2s;
+      transition: background .15s, opacity .15s, transform .05s;
       font-family: inherit;
-      margin-top: 4px;
+      margin-top: 8px;
     }
-    .auth-btn:hover { background: var(--primary-light); }
+    .auth-btn:hover:not(:disabled) { background: var(--primary-light, #2a3a5e); }
+    .auth-btn:active:not(:disabled) { transform: translateY(1px); }
     .auth-btn:disabled { opacity: .55; cursor: not-allowed; }
+    .auth-btn-secondary {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .auth-btn-secondary:hover:not(:disabled) {
+      background: var(--bg-soft);
+      color: var(--primary);
+    }
     .auth-error {
       background: #fef2f2;
       border: 1px solid #fecaca;
-      color: #dc2626;
-      border-radius: var(--radius);
+      color: #b91c1c;
+      border-radius: 10px;
       padding: 10px 14px;
       font-size: 13px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: none;
+      line-height: 1.45;
     }
     .auth-error.visible { display: block; }
     .otp-inputs {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 18px;
       justify-content: center;
     }
     .otp-digit {
-      width: 48px;
-      height: 54px;
+      width: 46px;
+      height: 52px;
       text-align: center;
       font-size: 22px;
       font-weight: 700;
-      border: 2px solid var(--border);
-      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
       background: var(--bg);
       color: var(--primary);
       font-family: inherit;
-      transition: border-color .2s;
+      transition: border-color .15s, box-shadow .15s;
+      padding: 0;
     }
     .otp-digit:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(26,39,68,.08);
+      box-shadow: 0 0 0 3px rgba(26,39,68,.10);
     }
     .auth-resend {
       text-align: center;
       font-size: 13px;
       color: var(--text-muted);
-      margin-top: 16px;
+      margin-top: 14px;
     }
     .auth-resend a {
       color: var(--primary);
       font-weight: 600;
       cursor: pointer;
-      text-decoration: underline;
+      text-decoration: none;
     }
+    .auth-resend a:hover { text-decoration: underline; }
     .auth-back {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 13px;
       color: var(--text-muted);
       cursor: pointer;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 6px;
+      transition: background .15s, color .15s;
       width: fit-content;
     }
-    .auth-back:hover { color: var(--primary); }
+    .auth-back:hover { color: var(--primary); background: var(--bg-soft); }
     .auth-back svg { width: 14px; height: 14px; }
     .auth-divider {
       text-align: center;
       font-size: 12px;
       color: var(--text-light);
-      margin: 20px 0;
+      margin: 18px 0 0;
+      line-height: 1.5;
     }
+    .auth-divider a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .auth-divider a:hover { text-decoration: underline; }
     .name-hint {
       font-size: 12px;
       color: var(--text-muted);
       margin-top: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .success-icon {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       background: #d1fae5;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 18px;
     }
-    .success-icon svg { width: 30px; height: 30px; color: #10b981; }
-    #recaptcha-container { margin-bottom: 8px; }
+    .success-icon svg { width: 32px; height: 32px; color: #059669; }
+    #recaptcha-container { margin-bottom: 6px; }
     .loading-spinner {
       display: inline-block;
-      width: 16px; height: 16px;
+      width: 14px; height: 14px;
       border: 2px solid rgba(255,255,255,.3);
       border-top-color: white;
       border-radius: 50%;
@@ -208,6 +266,11 @@
       vertical-align: middle;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* register fields appear under phone in qeydiyyat mode */
+    .auth-register-fields { display: none; margin-bottom: 4px; }
+    .auth-register-fields.visible { display: block; }
+    .auth-field { margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -219,13 +282,20 @@
       <span>BizBazar<span style="color:var(--accent)">.az</span></span>
     </a>
 
+    <!-- Tab switcher: Daxil ol / Qeydiyyat (only on step-phone) -->
+    <div class="auth-tabs" id="auth-tabs">
+      <button type="button" class="auth-tab active" data-mode="login" id="tab-login">Daxil ol</button>
+      <button type="button" class="auth-tab" data-mode="register" id="tab-register">Qeydiyyat</button>
+    </div>
+
     <!-- ── Step 1: Phone number ── -->
     <div class="auth-step active" id="step-phone">
-      <div class="auth-title" id="s1-title">Daxil ol / Qeydiyyat</div>
-      <div class="auth-sub" id="s1-sub">Telefon nömrənizi daxil edin. Eyni nömrəyə təsdiq kodu göndəriləcək.</div>
+      <div class="auth-title" id="s1-title">Telefon nömrəsi ilə davam edin</div>
+      <div class="auth-sub" id="s1-sub">Nömrənizi daxil edin — SMS təsdiq kodu göndərəcəyik.</div>
 
       <div id="auth-error-1" class="auth-error"></div>
 
+      <label class="auth-field-label" id="s1-phone-label" for="phone-input">Telefon nömrəsi</label>
       <div class="phone-input-wrap">
         <div class="phone-prefix"><span>🇦🇿</span> +994</div>
         <input
@@ -238,11 +308,20 @@
           autocomplete="tel-national"
         >
       </div>
+
+      <!-- Extra fields shown only in Qeydiyyat (register) mode -->
+      <div class="auth-register-fields" id="register-fields">
+        <div class="auth-field">
+          <label class="auth-field-label" for="reg-name-input" id="reg-name-label">Adınız və soyadınız</label>
+          <input class="auth-input" type="text" id="reg-name-input" placeholder="Anar Məmmədov" autocomplete="name">
+        </div>
+      </div>
+
       <div id="recaptcha-container"></div>
       <button class="auth-btn" id="otp-send-btn" onclick="handleSendOTP()">
         <span id="send-btn-text">Kodu göndər</span>
       </button>
-      <div class="auth-divider" id="s1-terms">Daxil olaraq <a href="faq.html" style="color:var(--primary)">istifadə şərtlərini</a> qəbul edirsiniz</div>
+      <div class="auth-divider" id="s1-terms">Davam etməklə <a href="faq.html">istifadə şərtlərini</a> qəbul edirsiniz</div>
     </div>
 
     <!-- ── Step 2: OTP verification ── -->
@@ -252,17 +331,17 @@
         <span id="s2-back">Geri</span>
       </div>
       <div class="auth-title" id="s2-title">Kodu daxil edin</div>
-      <div class="auth-sub" id="s2-sub">SMS ilə göndərilən 6 rəqəmli kodu daxil edin.</div>
+      <div class="auth-sub" id="s2-sub">Nömrənizə göndərilən 6 rəqəmli kodu yazın.</div>
 
       <div id="auth-error-2" class="auth-error"></div>
 
       <div class="otp-inputs">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
+        <input class="otp-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code">
       </div>
 
       <button class="auth-btn" id="otp-verify-btn" onclick="handleVerifyOTP()">
@@ -271,14 +350,14 @@
 
       <div class="auth-resend">
         <span id="s2-resend-label">Kodu almadınız?</span>
-        <a onclick="handleResend()" id="resend-link"> Yenidən göndər</a>
+        <a onclick="handleResend()" id="resend-link">Yenidən göndər</a>
       </div>
     </div>
 
-    <!-- ── Step 3: Set display name (new users) ── -->
+    <!-- ── Step 3: Set display name (fallback if not collected on step 1) ── -->
     <div class="auth-step" id="step-name">
       <div class="auth-title" id="s3-title">Adınızı daxil edin</div>
-      <div class="auth-sub" id="s3-sub">Digər istifadəçilər sizi bu adla tanıyacaq. İstəyə görə sonradan da dəyişə bilərsiniz.</div>
+      <div class="auth-sub" id="s3-sub">Digər istifadəçilər sizi bu adla görəcək. Sonra dəyişə bilərsiniz.</div>
 
       <div id="auth-error-3" class="auth-error"></div>
 
@@ -286,7 +365,7 @@
         class="auth-input"
         type="text"
         id="name-input"
-        style="margin-bottom:8px"
+        placeholder="Anar Məmmədov"
         autocomplete="name"
       >
       <div class="name-hint" id="s3-hint">Məsələn: Anar M., Leyla Əliyeva</div>
@@ -294,7 +373,7 @@
       <button class="auth-btn" onclick="handleSetName()">
         <span id="name-btn-text">Davam et</span>
       </button>
-      <button class="auth-btn" style="background:transparent;color:var(--text-muted);margin-top:8px" onclick="skipName()" id="skip-btn">
+      <button class="auth-btn auth-btn-secondary" style="margin-top:8px" onclick="skipName()" id="skip-btn">
         <span id="skip-btn-text">Keç</span>
       </button>
     </div>
@@ -311,125 +390,184 @@
   </div>
 </div>
 
-<script src="js/app.js"></script>
+<script src="js/app.js?v=3"></script>
 <script type="module">
   import {
     auth, onAuthStateChanged,
     sendOTP, verifyOTP,
     createOrUpdateProfile, getProfile
-  } from "./js/firebase.js?v=2";
+  } from "./js/firebase.js?v=3";
 
   // ── i18n strings ─────────────────────────────────────────
   const TX = {
     az: {
-      s1_title: "Daxil ol / Qeydiyyat",
-      s1_sub: "Telefon nömrənizi daxil edin. Eyni nömrəyə təsdiq kodu göndəriləcək.",
+      tab_login: "Daxil ol",
+      tab_register: "Qeydiyyat",
+      s1_title_login: "Telefon nömrəsi ilə davam edin",
+      s1_title_register: "Yeni hesab yaradın",
+      s1_sub_login: "Nömrənizi daxil edin — SMS təsdiq kodu göndərəcəyik.",
+      s1_sub_register: "Adınızı və nömrənizi daxil edin — SMS təsdiq kodu göndərəcəyik.",
+      s1_phone_label: "Telefon nömrəsi",
+      s1_name_label: "Adınız və soyadınız",
       send_btn: "Kodu göndər",
       sending: "Göndərilir...",
-      s1_terms: "Daxil olaraq istifadə şərtlərini qəbul edirsiniz",
+      s1_terms: 'Davam etməklə <a href="faq.html">istifadə şərtlərini</a> qəbul edirsiniz',
       s2_back: "Geri",
       s2_title: "Kodu daxil edin",
-      s2_sub: "SMS ilə göndərilən 6 rəqəmli kodu daxil edin.",
+      s2_sub: "Nömrənizə göndərilən 6 rəqəmli kodu yazın.",
       verify_btn: "Təsdiqlə",
       verifying: "Yoxlanır...",
-      s2_resend: "Kodu almadınız?",
-      resend: " Yenidən göndər",
+      s2_resend_label: "Kodu almadınız?",
+      resend: "Yenidən göndər",
       s3_title: "Adınızı daxil edin",
-      s3_sub: "Digər istifadəçilər sizi bu adla tanıyacaq. İstəyə görə sonradan da dəyişə bilərsiniz.",
-      name_placeholder: "Adınız",
+      s3_sub: "Digər istifadəçilər sizi bu adla görəcək. Sonra dəyişə bilərsiniz.",
+      name_placeholder: "Anar Məmmədov",
       s3_hint: "Məsələn: Anar M., Leyla Əliyeva",
       name_btn: "Davam et",
       skip_btn: "Keç",
       s4_title: "Uğurla daxil oldunuz!",
       s4_sub: "Profil səhifənizə yönləndirilirsiniz...",
-      err_phone: "Zəhmət olmasa düzgün telefon nömrəsi daxil edin.",
-      err_otp: "Yanlış kod. Yenidən cəhd edin.",
-      err_generic: "Xəta baş verdi. Yenidən cəhd edin."
+      err_phone: "Düzgün telefon nömrəsi daxil edin (9 rəqəm).",
+      err_name_required: "Qeydiyyat üçün adınızı daxil edin.",
+      err_otp_wrong: "Yanlış kod. Yenidən cəhd edin.",
+      err_otp_send: "Kod göndərilmədi. Bir az sonra yenidən cəhd edin.",
+      err_quota: "Bu nömrəyə çox sayda kod göndərilib. 1-2 saat sonra yenidən cəhd edin.",
+      err_too_many: "Çox sayda cəhd. Bir müddət gözləyin.",
+      err_profile_save: "Profil yadda saxlanmadı. İnternet bağlantınızı yoxlayın və yenidən cəhd edin.",
+      err_generic: "Xəta baş verdi: "
     },
     en: {
-      s1_title: "Sign in / Register",
-      s1_sub: "Enter your phone number. A verification code will be sent via SMS.",
+      tab_login: "Sign in",
+      tab_register: "Register",
+      s1_title_login: "Continue with your phone",
+      s1_title_register: "Create a new account",
+      s1_sub_login: "Enter your number — we'll send an SMS verification code.",
+      s1_sub_register: "Enter your name and number — we'll send an SMS verification code.",
+      s1_phone_label: "Phone number",
+      s1_name_label: "Full name",
       send_btn: "Send code",
       sending: "Sending...",
-      s1_terms: "By signing in you agree to our terms of service",
+      s1_terms: 'By continuing you accept our <a href="faq.html">terms of service</a>',
       s2_back: "Back",
       s2_title: "Enter the code",
-      s2_sub: "Enter the 6-digit code sent to your phone by SMS.",
+      s2_sub: "Enter the 6-digit code we sent to your phone.",
       verify_btn: "Verify",
       verifying: "Verifying...",
-      s2_resend: "Didn't receive the code?",
-      resend: " Resend",
+      s2_resend_label: "Didn't get the code?",
+      resend: "Resend",
       s3_title: "Enter your name",
       s3_sub: "Other users will see this name. You can change it later.",
-      name_placeholder: "Your name",
+      name_placeholder: "Anar Mammadov",
       s3_hint: "E.g. Anar M., Leyla Aliyeva",
       name_btn: "Continue",
       skip_btn: "Skip",
       s4_title: "You're signed in!",
       s4_sub: "Redirecting to your profile...",
-      err_phone: "Please enter a valid phone number.",
-      err_otp: "Wrong code. Please try again.",
-      err_generic: "An error occurred. Please try again."
+      err_phone: "Please enter a valid phone number (9 digits).",
+      err_name_required: "Please enter your name to register.",
+      err_otp_wrong: "Wrong code. Please try again.",
+      err_otp_send: "Couldn't send the code. Try again in a moment.",
+      err_quota: "Too many codes sent to this number. Try again in 1–2 hours.",
+      err_too_many: "Too many attempts. Please wait a moment.",
+      err_profile_save: "Couldn't save your profile. Check your internet and try again.",
+      err_generic: "Something went wrong: "
     },
     ru: {
-      s1_title: "Войти / Регистрация",
-      s1_sub: "Введите свой номер телефона. На него будет отправлен код подтверждения.",
+      tab_login: "Войти",
+      tab_register: "Регистрация",
+      s1_title_login: "Продолжить с номером телефона",
+      s1_title_register: "Создать новый аккаунт",
+      s1_sub_login: "Введите номер — мы отправим SMS-код подтверждения.",
+      s1_sub_register: "Введите имя и номер — мы отправим SMS-код подтверждения.",
+      s1_phone_label: "Номер телефона",
+      s1_name_label: "Имя и фамилия",
       send_btn: "Отправить код",
       sending: "Отправка...",
-      s1_terms: "Входя в систему, вы принимаете условия использования",
+      s1_terms: 'Продолжая, вы принимаете <a href="faq.html">условия использования</a>',
       s2_back: "Назад",
       s2_title: "Введите код",
       s2_sub: "Введите 6-значный код, отправленный вам по SMS.",
       verify_btn: "Подтвердить",
       verifying: "Проверка...",
-      s2_resend: "Не получили код?",
-      resend: " Отправить снова",
+      s2_resend_label: "Не получили код?",
+      resend: "Отправить снова",
       s3_title: "Введите ваше имя",
-      s3_sub: "Другие пользователи будут видеть это имя. Можно изменить позже.",
-      name_placeholder: "Ваше имя",
+      s3_sub: "Другие пользователи увидят это имя. Можно изменить позже.",
+      name_placeholder: "Анар Мамедов",
       s3_hint: "Например: Анар М., Лейла Алиева",
       name_btn: "Продолжить",
       skip_btn: "Пропустить",
       s4_title: "Вы вошли в систему!",
-      s4_sub: "Перенаправление на страницу профиля...",
-      err_phone: "Пожалуйста, введите корректный номер телефона.",
-      err_otp: "Неверный код. Попробуйте снова.",
-      err_generic: "Произошла ошибка. Попробуйте снова."
+      s4_sub: "Перенаправление в профиль...",
+      err_phone: "Введите корректный номер телефона (9 цифр).",
+      err_name_required: "Введите имя для регистрации.",
+      err_otp_wrong: "Неверный код. Попробуйте снова.",
+      err_otp_send: "Код не отправлен. Попробуйте чуть позже.",
+      err_quota: "Слишком много кодов на этот номер. Попробуйте через 1–2 часа.",
+      err_too_many: "Слишком много попыток. Подождите немного.",
+      err_profile_save: "Не удалось сохранить профиль. Проверьте интернет и повторите.",
+      err_generic: "Произошла ошибка: "
     }
   };
-
+  function getLang() { return localStorage.getItem("bb_lang") || "az"; }
   function tx(key) {
-    const lang = localStorage.getItem("bb_lang") || "az";
-    return (TX[lang] && TX[lang][key]) || TX.az[key] || key;
+    const l = getLang();
+    return (TX[l] && TX[l][key]) || TX.az[key] || key;
   }
 
+  // ── Mode (login/register) ────────────────────────────────
+  let mode = "login";
+  const tabLogin = document.getElementById("tab-login");
+  const tabRegister = document.getElementById("tab-register");
+  const regFields = document.getElementById("register-fields");
+
+  function setMode(m) {
+    mode = m;
+    tabLogin.classList.toggle("active", m === "login");
+    tabRegister.classList.toggle("active", m === "register");
+    regFields.classList.toggle("visible", m === "register");
+    document.getElementById("s1-title").textContent = tx(m === "register" ? "s1_title_register" : "s1_title_login");
+    document.getElementById("s1-sub").textContent = tx(m === "register" ? "s1_sub_register" : "s1_sub_login");
+  }
+  tabLogin.addEventListener("click", () => setMode("login"));
+  tabRegister.addEventListener("click", () => setMode("register"));
+
+  // Auto-switch to register if URL has ?mode=register
+  if (new URLSearchParams(location.search).get("mode") === "register") {
+    setMode("register");
+  }
+
+  // ── Apply i18n texts ─────────────────────────────────────
   function applyTX() {
-    document.getElementById("s1-title").textContent     = tx("s1_title");
-    document.getElementById("s1-sub").textContent       = tx("s1_sub");
+    document.getElementById("tab-login").textContent = tx("tab_login");
+    document.getElementById("tab-register").textContent = tx("tab_register");
+    document.getElementById("s1-title").textContent = tx(mode === "register" ? "s1_title_register" : "s1_title_login");
+    document.getElementById("s1-sub").textContent = tx(mode === "register" ? "s1_sub_register" : "s1_sub_login");
+    document.getElementById("s1-phone-label").textContent = tx("s1_phone_label");
+    document.getElementById("reg-name-label").textContent = tx("s1_name_label");
     document.getElementById("send-btn-text").textContent = tx("send_btn");
-    document.getElementById("s1-terms").innerHTML       = tx("s1_terms").replace("istifadə şərtlərini", '<a href="faq.html" style="color:var(--primary)">istifadə şərtlərini</a>').replace("terms of service", '<a href="faq.html" style="color:var(--primary)">terms of service</a>').replace("условия использования", '<a href="faq.html" style="color:var(--primary)">условия использования</a>');
-    document.getElementById("s2-back").textContent      = tx("s2_back");
-    document.getElementById("s2-title").textContent     = tx("s2_title");
-    document.getElementById("s2-sub").textContent       = tx("s2_sub");
+    document.getElementById("s1-terms").innerHTML = tx("s1_terms");
+    document.getElementById("s2-back").textContent = tx("s2_back");
+    document.getElementById("s2-title").textContent = tx("s2_title");
+    document.getElementById("s2-sub").textContent = tx("s2_sub");
     document.getElementById("verify-btn-text").textContent = tx("verify_btn");
-    document.getElementById("s2-resend-label").textContent = tx("s2_resend");
-    document.getElementById("resend-link").textContent  = tx("resend");
-    document.getElementById("s3-title").textContent     = tx("s3_title");
-    document.getElementById("s3-sub").textContent       = tx("s3_sub");
-    document.getElementById("name-input").placeholder   = tx("name_placeholder");
-    document.getElementById("s3-hint").textContent      = tx("s3_hint");
+    document.getElementById("s2-resend-label").textContent = tx("s2_resend_label");
+    document.getElementById("resend-link").textContent = " " + tx("resend");
+    document.getElementById("s3-title").textContent = tx("s3_title");
+    document.getElementById("s3-sub").textContent = tx("s3_sub");
+    document.getElementById("name-input").placeholder = tx("name_placeholder");
+    document.getElementById("reg-name-input").placeholder = tx("name_placeholder");
+    document.getElementById("s3-hint").textContent = tx("s3_hint");
     document.getElementById("name-btn-text").textContent = tx("name_btn");
     document.getElementById("skip-btn-text").textContent = tx("skip_btn");
-    document.getElementById("s4-title").textContent     = tx("s4_title");
-    document.getElementById("s4-sub").textContent       = tx("s4_sub");
+    document.getElementById("s4-title").textContent = tx("s4_title");
+    document.getElementById("s4-sub").textContent = tx("s4_sub");
   }
   applyTX();
+  window.addEventListener("langchange", applyTX);
 
-  // ── Redirect if already logged in ───────────────────────
-  onAuthStateChanged(auth, user => {
-    if (user) redirectAfterLogin();
-  });
-
+  // ── Redirect if already signed in ────────────────────────
+  onAuthStateChanged(auth, user => { if (user) redirectAfterLogin(); });
   function redirectAfterLogin() {
     const returnTo = new URLSearchParams(location.search).get("returnTo");
     location.href = returnTo || "profile.html";
@@ -439,11 +577,14 @@
   window.goToStep = function(step) {
     document.querySelectorAll(".auth-step").forEach(s => s.classList.remove("active"));
     document.getElementById("step-" + step).classList.add("active");
+    // Hide tabs after step 1
+    document.getElementById("auth-tabs").style.display = step === "phone" ? "flex" : "none";
   };
 
   function showError(stepNum, msg) {
     const el = document.getElementById("auth-error-" + stepNum);
-    el.textContent = msg;
+    if (!el) return;
+    el.innerHTML = msg;
     el.classList.add("visible");
   }
   function clearError(stepNum) {
@@ -451,28 +592,53 @@
     if (el) el.classList.remove("visible");
   }
 
+  // Friendly mapping for Firebase error codes
+  function friendlyFirebaseError(e) {
+    const code = e?.code || "";
+    if (code.includes("invalid-phone-number")) return tx("err_phone");
+    if (code.includes("invalid-verification-code")) return tx("err_otp_wrong");
+    if (code.includes("code-expired")) return tx("err_otp_wrong");
+    if (code.includes("quota-exceeded") || code.includes("too-many-requests")) return tx("err_quota");
+    if (code.includes("missing-phone-number")) return tx("err_phone");
+    if (code.includes("captcha-check-failed")) return tx("err_otp_send");
+    if (code.includes("network-request-failed")) return tx("err_profile_save");
+    return tx("err_generic") + (e?.message || e?.code || "unknown");
+  }
+
+  // Capture pending register name from step 1
+  let pendingRegisterName = null;
+
   // ── Step 1: Send OTP ─────────────────────────────────────
   window.handleSendOTP = async function() {
     clearError(1);
     const raw = document.getElementById("phone-input").value.replace(/\D/g, "");
     if (raw.length < 9) { showError(1, tx("err_phone")); return; }
+    if (mode === "register") {
+      const name = document.getElementById("reg-name-input").value.trim();
+      if (!name) { showError(1, tx("err_name_required")); return; }
+      pendingRegisterName = name;
+    } else {
+      pendingRegisterName = null;
+    }
     const phone = "+994" + raw;
     const btn = document.getElementById("otp-send-btn");
     btn.disabled = true;
     document.getElementById("send-btn-text").innerHTML = `<span class="loading-spinner"></span>${tx("sending")}`;
     try {
-      await sendOTP(phone);
+      await sendOTP(phone, "otp-send-btn");
       goToStep("otp");
+      // Focus first OTP input
+      setTimeout(() => document.querySelector(".otp-digit")?.focus(), 100);
     } catch (e) {
-      console.error(e);
-      showError(1, tx("err_generic"));
-      btn.disabled = false;
-      document.getElementById("send-btn-text").textContent = tx("send_btn");
-      // reset recaptcha
+      console.error("sendOTP failed:", e);
+      showError(1, friendlyFirebaseError(e));
       if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.clear();
+        try { window.recaptchaVerifier.clear(); } catch(_){}
         window.recaptchaVerifier = null;
       }
+    } finally {
+      btn.disabled = false;
+      document.getElementById("send-btn-text").textContent = tx("send_btn");
     }
   };
 
@@ -482,6 +648,10 @@
     inp.addEventListener("input", () => {
       inp.value = inp.value.replace(/\D/g, "").slice(-1);
       if (inp.value && i < digits.length - 1) digits[i + 1].focus();
+      // auto-submit when all 6 are filled
+      if (i === digits.length - 1 && getOTPCode().length === 6) {
+        window.handleVerifyOTP();
+      }
     });
     inp.addEventListener("keydown", e => {
       if (e.key === "Backspace" && !inp.value && i > 0) digits[i - 1].focus();
@@ -491,6 +661,7 @@
       const pasted = (e.clipboardData.getData("text") || "").replace(/\D/g, "").slice(0, 6);
       pasted.split("").forEach((ch, j) => { if (digits[j]) digits[j].value = ch; });
       if (digits[pasted.length - 1]) digits[pasted.length - 1].focus();
+      if (pasted.length === 6) window.handleVerifyOTP();
     });
   });
 
@@ -504,22 +675,38 @@
   window.handleVerifyOTP = async function() {
     clearError(2);
     const code = getOTPCode();
-    if (code.length !== 6) { showError(2, tx("err_otp")); return; }
+    if (code.length !== 6) { showError(2, tx("err_otp_wrong")); return; }
     const btn = document.getElementById("otp-verify-btn");
     btn.disabled = true;
     document.getElementById("verify-btn-text").innerHTML = `<span class="loading-spinner"></span>${tx("verifying")}`;
     try {
       firebaseUser = await verifyOTP(code);
-      // check if new user (no profile yet)
-      const profile = await getProfile(firebaseUser.uid);
-      if (!profile || !profile.displayName) {
-        goToStep("name");
-      } else {
+    } catch (e) {
+      console.error("verifyOTP failed:", e);
+      showError(2, friendlyFirebaseError(e));
+      btn.disabled = false;
+      document.getElementById("verify-btn-text").textContent = tx("verify_btn");
+      return;
+    }
+    // OTP correct — now resolve profile and finish login (separate try so we can show DIFFERENT error)
+    try {
+      const profile = await getProfile(firebaseUser.uid).catch(() => null);
+      const haveName = profile?.displayName && profile.displayName.trim();
+      if (haveName) {
         await finishLogin(profile.displayName);
+      } else if (pendingRegisterName) {
+        // User filled name on step 1 (register mode)
+        await finishLogin(pendingRegisterName);
+      } else {
+        // Login mode but no profile yet (first time login without name) — ask
+        goToStep("name");
+        setTimeout(() => document.getElementById("name-input")?.focus(), 100);
+        btn.disabled = false;
+        document.getElementById("verify-btn-text").textContent = tx("verify_btn");
       }
     } catch (e) {
-      console.error(e);
-      showError(2, tx("err_otp"));
+      console.error("post-verify (profile save) failed:", e);
+      showError(2, tx("err_profile_save") + " (" + (e?.code || e?.message || "?") + ")");
       btn.disabled = false;
       document.getElementById("verify-btn-text").textContent = tx("verify_btn");
     }
@@ -527,12 +714,23 @@
 
   // ── Step 3: Set name ─────────────────────────────────────
   window.handleSetName = async function() {
+    clearError(3);
     const name = document.getElementById("name-input").value.trim();
-    await finishLogin(name || null);
+    if (!name) { showError(3, tx("err_name_required")); return; }
+    try { await finishLogin(name); }
+    catch (e) {
+      console.error("setName/finishLogin failed:", e);
+      showError(3, tx("err_profile_save") + " (" + (e?.code || e?.message || "?") + ")");
+    }
   };
 
   window.skipName = async function() {
-    await finishLogin(null);
+    clearError(3);
+    try { await finishLogin(null); }
+    catch (e) {
+      console.error("skipName/finishLogin failed:", e);
+      showError(3, tx("err_profile_save") + " (" + (e?.code || e?.message || "?") + ")");
+    }
   };
 
   async function finishLogin(displayName) {
@@ -549,7 +747,7 @@
   // ── Resend OTP ───────────────────────────────────────────
   window.handleResend = async function() {
     if (window.recaptchaVerifier) {
-      window.recaptchaVerifier.clear();
+      try { window.recaptchaVerifier.clear(); } catch(_) {}
       window.recaptchaVerifier = null;
     }
     goToStep("phone");
@@ -557,4 +755,3 @@
 </script>
 </body>
 </html>
-            
