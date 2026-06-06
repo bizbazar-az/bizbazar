@@ -319,19 +319,19 @@
       title: "Mesajlar", empty: "Hələlik mesaj yoxdur",
       select_chat: "Söhbət seçin", view_listing: "Elana bax",
       placeholder: "Mesaj yazın...", auth_msg: "Bu səhifəyə daxil olmaq üçün hesabınıza giriş edin.",
-      auth_btn: "Daxil ol"
+      auth_btn: "Daxil ol", yesterday: "dünən", doc_title: "Mesajlar — BizBazar.az"
     },
     en: {
       title: "Messages", empty: "No messages yet",
       select_chat: "Select a conversation", view_listing: "View listing",
       placeholder: "Type a message...", auth_msg: "Sign in to access your messages.",
-      auth_btn: "Sign in"
+      auth_btn: "Sign in", yesterday: "yesterday", doc_title: "Messages — BizBazar.az"
     },
     ru: {
       title: "Сообщения", empty: "Пока нет сообщений",
       select_chat: "Выберите беседу", view_listing: "Смотреть объявление",
       placeholder: "Написать сообщение...", auth_msg: "Войдите в аккаунт, чтобы читать сообщения.",
-      auth_btn: "Войти"
+      auth_btn: "Войти", yesterday: "вчера", doc_title: "Сообщения — BizBazar.az"
     }
   };
   function tx(key) {
@@ -346,7 +346,10 @@
     document.getElementById("chat-input").placeholder       = tx("placeholder");
     document.getElementById("auth-guard-msg").textContent   = tx("auth_msg");
     document.getElementById("auth-guard-btn").textContent   = tx("auth_btn");
+    document.title = tx("doc_title");
   }
+  applyMsgTX();
+  window.addEventListener("langchange", applyMsgTX);
 
   let currentUser = null;
   let activeConvId = null;
@@ -378,7 +381,7 @@
     const diffMs = now - d;
     const diffDays = Math.floor(diffMs / 86400000);
     if (diffDays === 0) return fmtTime(ts);
-    if (diffDays === 1) return "dünən";
+    if (diffDays === 1) return tx("yesterday");
     return d.toLocaleDateString([], { day: "2-digit", month: "short" });
   }
 

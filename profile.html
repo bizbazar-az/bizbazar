@@ -318,21 +318,24 @@
       stat_favs: "Saxlanmış elanlar", stat_msgs: "Mesajlar",
       edit_title: "Profili redaktə et", lbl_name: "Ad", lbl_phone: "Telefon",
       save: "Saxla", saved: "Yadda saxlandı",
-      joined: "Qoşuldu", unread: "oxunmamış", conversation: "söhbət"
+      joined: "Qoşuldu", unread: "oxunmamış", conversation: "söhbət",
+      doc_title: "Profil — BizBazar.az"
     },
     en: {
       btn_messages: "Messages", logout: "Sign out", sidebar_title: "My account",
       stat_favs: "Saved listings", stat_msgs: "Messages",
       edit_title: "Edit profile", lbl_name: "Name", lbl_phone: "Phone",
       save: "Save", saved: "Saved",
-      joined: "Joined", unread: "unread", conversation: "conversation"
+      joined: "Joined", unread: "unread", conversation: "conversation",
+      doc_title: "Profile — BizBazar.az"
     },
     ru: {
       btn_messages: "Сообщения", logout: "Выйти", sidebar_title: "Мой аккаунт",
       stat_favs: "Сохранённые объявления", stat_msgs: "Сообщения",
       edit_title: "Редактировать профиль", lbl_name: "Имя", lbl_phone: "Телефон",
       save: "Сохранить", saved: "Сохранено",
-      joined: "Зарегистрирован", unread: "непрочитанных", conversation: "беседа"
+      joined: "Зарегистрирован", unread: "непрочитанных", conversation: "беседа",
+      doc_title: "Профиль — BizBazar.az"
     }
   };
   function tx(key) {
@@ -350,7 +353,14 @@
     document.getElementById("lbl-phone").textContent          = tx("lbl_phone");
     document.getElementById("save-btn-label").textContent     = tx("save");
     document.getElementById("save-success-msg").textContent   = tx("saved");
+    const joinedEl = document.getElementById("hero-joined");
+    if (joinedEl && joinedEl.dataset.ts) {
+      joinedEl.textContent = fmtJoined({ toDate: () => new Date(Number(joinedEl.dataset.ts)) });
+    }
+    document.title = tx("doc_title");
   }
+  applyProfileTX();
+  window.addEventListener("langchange", applyProfileTX);
 
   function getInitials(name) {
     if (!name) return "?";
@@ -382,7 +392,12 @@
 
     document.getElementById("hero-name").textContent      = name;
     document.getElementById("hero-phone").textContent     = user.phoneNumber;
-    document.getElementById("hero-joined").textContent    = fmtJoined(profile?.createdAt);
+    const joinedEl = document.getElementById("hero-joined");
+    if (profile?.createdAt) {
+      const d = profile.createdAt.toDate ? profile.createdAt.toDate() : new Date(profile.createdAt);
+      joinedEl.dataset.ts = String(d.getTime());
+    }
+    joinedEl.textContent = fmtJoined(profile?.createdAt);
     document.getElementById("edit-name").value            = profile?.displayName || "";
     document.getElementById("edit-phone").value           = user.phoneNumber;
 

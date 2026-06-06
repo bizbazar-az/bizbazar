@@ -344,7 +344,8 @@
       s4_sub: "Profil səhifənizə yönləndirilirsiniz...",
       err_phone: "Zəhmət olmasa düzgün telefon nömrəsi daxil edin.",
       err_otp: "Yanlış kod. Yenidən cəhd edin.",
-      err_generic: "Xəta baş verdi. Yenidən cəhd edin."
+      err_generic: "Xəta baş verdi. Yenidən cəhd edin.",
+      doc_title: "BizBazar.az — Daxil ol"
     },
     en: {
       s1_title: "Sign in / Register",
@@ -369,7 +370,8 @@
       s4_sub: "Redirecting to your profile...",
       err_phone: "Please enter a valid phone number.",
       err_otp: "Wrong code. Please try again.",
-      err_generic: "An error occurred. Please try again."
+      err_generic: "An error occurred. Please try again.",
+      doc_title: "BizBazar.az — Sign in"
     },
     ru: {
       s1_title: "Войти / Регистрация",
@@ -394,7 +396,8 @@
       s4_sub: "Перенаправление на страницу профиля...",
       err_phone: "Пожалуйста, введите корректный номер телефона.",
       err_otp: "Неверный код. Попробуйте снова.",
-      err_generic: "Произошла ошибка. Попробуйте снова."
+      err_generic: "Произошла ошибка. Попробуйте снова.",
+      doc_title: "BizBazar.az — Вход"
     }
   };
 
@@ -422,8 +425,10 @@
     document.getElementById("skip-btn-text").textContent = tx("skip_btn");
     document.getElementById("s4-title").textContent     = tx("s4_title");
     document.getElementById("s4-sub").textContent       = tx("s4_sub");
+    document.title = tx("doc_title");
   }
   applyTX();
+  window.addEventListener("langchange", applyTX);
 
   // ── Redirect if already logged in ───────────────────────
   onAuthStateChanged(auth, user => {
