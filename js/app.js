@@ -224,7 +224,17 @@ const STRINGS = {
     inv_cta_benefit_2: "Maliyyə, hüquqi və qiymətləndirmə dəstəyi",
     inv_cta_benefit_3: "Eksklüziv müştəri menecerinin dəstəyi",
     inv_cta_btn_primary: "Qeydiyyatdan keç",
-    inv_cta_btn_whatsapp: "WhatsApp ilə əlaqə"
+    inv_cta_btn_whatsapp: "WhatsApp ilə əlaqə",
+    favorites_empty_hint: "Hələ heç bir elan saxlanmayıb. Elanların üzərindəki ♥ düyməsini basın.",
+    franchise_filter_all_inv: "Bütün investisiyalar",
+    franchise_sort_featured: "Seçilmişlər",
+    franchise_sort_inv_low: "Investisiya: az → çox",
+    franchise_sort_inv_high: "Investisiya: çox → az",
+    franchise_sort_payback: "Sürətli geri ödəmə",
+    franchise_sort_branches: "Ən çox filial",
+    franchise_cta_title: "Öz franşizanı yerləşdir",
+    franchise_cta_sub: "Azərbaycanda biznes modelinizi genişləndirin. BizBazar yoxlanmış franşiza müraciətlərini sizə göndərir.",
+    franchise_cta_btn: "Əlaqə saxla"
   },
   en: {
     brand: "BizBazar",
@@ -455,7 +465,17 @@ const STRINGS = {
     inv_cta_benefit_2: "Financial, legal and valuation support",
     inv_cta_benefit_3: "Dedicated account manager",
     inv_cta_btn_primary: "Register now",
-    inv_cta_btn_whatsapp: "Contact via WhatsApp"
+    inv_cta_btn_whatsapp: "Contact via WhatsApp",
+    favorites_empty_hint: "Nothing saved yet. Tap the ♥ icon on any listing to save it here.",
+    franchise_filter_all_inv: "All investment ranges",
+    franchise_sort_featured: "Featured",
+    franchise_sort_inv_low: "Investment: low → high",
+    franchise_sort_inv_high: "Investment: high → low",
+    franchise_sort_payback: "Fastest payback",
+    franchise_sort_branches: "Most branches",
+    franchise_cta_title: "List your own franchise",
+    franchise_cta_sub: "Expand your business model in Azerbaijan. BizBazar sends you verified franchise enquiries.",
+    franchise_cta_btn: "Get in touch"
   },
   ru: {
     brand: "BizBazar",
@@ -676,7 +696,17 @@ const STRINGS = {
     inv_cta_benefit_2: "Финансовая, юридическая и оценочная поддержка",
     inv_cta_benefit_3: "Персональный менеджер аккаунта",
     inv_cta_btn_primary: "Зарегистрироваться",
-    inv_cta_btn_whatsapp: "Связаться в WhatsApp"
+    inv_cta_btn_whatsapp: "Связаться в WhatsApp",
+    favorites_empty_hint: "Пока ничего не сохранено. Нажмите ♥ на объявлении, чтобы добавить его сюда.",
+    franchise_filter_all_inv: "Все диапазоны инвестиций",
+    franchise_sort_featured: "Рекомендуемые",
+    franchise_sort_inv_low: "Инвестиции: по возрастанию",
+    franchise_sort_inv_high: "Инвестиции: по убыванию",
+    franchise_sort_payback: "Быстрая окупаемость",
+    franchise_sort_branches: "Больше всего филиалов",
+    franchise_cta_title: "Разместите свою франшизу",
+    franchise_cta_sub: "Расширьте свою бизнес-модель в Азербайджане. BizBazar присылает вам проверенные заявки на франшизу.",
+    franchise_cta_btn: "Связаться"
   }
 };
 
