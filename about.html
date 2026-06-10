@@ -133,9 +133,9 @@ const ABOUT_COPY = {
     teamHeading: "Komandamız",
     teamSub: "BizBazar.az-ı qurub idarə edən insanlar",
     team: [
-      { img: "https://i.pravatar.cc/200?img=11", name: "Rəşad Əliyev", role: "Baş İcraçı Direktor (CEO)", bio: "10+ il M&A və biznes inkişafı təcrübəsi. Bakıda 30+ sövdələşmədə iştirak edib." },
-      { img: "https://i.pravatar.cc/200?img=22", name: "Aysel Hüseynova", role: "Texnoloji direktor (CTO)", bio: "Proqram mühəndisliyi və məhsul inkişafı sahəsində 12 il təcrübə. Bir neçə startapın qurucusu." },
-      { img: "https://i.pravatar.cc/200?img=33", name: "Elçin Məmmədov", role: "Brokerlik şöbəsinin müdiri", bio: "Sertifikatlı biznes broker, 8 il təcrübə. Restoran və pərakəndə satış sektorunda ekspert." }
+      { name: "XXX", role: "Baş İcraçı Direktor (CEO)", bio: "10+ il M&A və biznes inkişafı təcrübəsi. Bakıda 30+ sövdələşmədə iştirak edib." },
+      { name: "YYY", role: "Texnoloji direktor (CTO)", bio: "Proqram mühəndisliyi və məhsul inkişafı sahəsində 12 il təcrübə. Bir neçə startapın qurucusu." },
+      { name: "ZZZ", role: "Brokerlik şöbəsinin müdiri", bio: "Sertifikatlı biznes broker, 8 il təcrübə. Restoran və pərakəndə satış sektorunda ekspert." }
     ],
     ctaTitle: "Hazırsınız ki, biznesinizə yeni başlıq açasınız?",
     ctaSub: "Yoxlanılmış elanlara baxın və ya öz biznesinizi sataraq peşəkar dəstək alın.",
@@ -163,9 +163,9 @@ const ABOUT_COPY = {
     teamHeading: "Our team",
     teamSub: "The people building and running BizBazar.az",
     team: [
-      { img: "https://i.pravatar.cc/200?img=11", name: "Rashad Aliyev", role: "CEO", bio: "10+ years in M&A and business development. Has participated in 30+ deals in Baku." },
-      { img: "https://i.pravatar.cc/200?img=22", name: "Aysel Huseynova", role: "CTO", bio: "12 years in software engineering and product development. Founder of multiple startups." },
-      { img: "https://i.pravatar.cc/200?img=33", name: "Elchin Mammadov", role: "Head of Brokerage", bio: "Certified business broker with 8 years of experience. Expert in restaurant and retail sectors." }
+      { name: "XXX", role: "CEO", bio: "10+ years in M&A and business development. Has participated in 30+ deals in Baku." },
+      { name: "YYY", role: "CTO", bio: "12 years in software engineering and product development. Founder of multiple startups." },
+      { name: "ZZZ", role: "Head of Brokerage", bio: "Certified business broker with 8 years of experience. Expert in restaurant and retail sectors." }
     ],
     ctaTitle: "Ready to open a new chapter for your business?",
     ctaSub: "Browse verified listings or sell your business with professional support.",
@@ -193,9 +193,9 @@ const ABOUT_COPY = {
     teamHeading: "Наша команда",
     teamSub: "Люди, которые создают и развивают BizBazar.az",
     team: [
-      { img: "https://i.pravatar.cc/200?img=11", name: "Рашад Алиев", role: "Генеральный директор (CEO)", bio: "10+ лет в M&A и развитии бизнеса. Участвовал в 30+ сделках в Баку." },
-      { img: "https://i.pravatar.cc/200?img=22", name: "Айсель Гусейнова", role: "Технический директор (CTO)", bio: "12 лет в разработке ПО и продуктов. Основатель нескольких стартапов." },
-      { img: "https://i.pravatar.cc/200?img=33", name: "Эльчин Мамедов", role: "Руководитель отдела брокериджа", bio: "Сертифицированный бизнес-брокер с 8-летним опытом. Эксперт в сфере ресторанов и розницы." }
+      { name: "XXX", role: "Генеральный директор (CEO)", bio: "10+ лет в M&A и развитии бизнеса. Участвовал в 30+ сделках в Баку." },
+      { name: "YYY", role: "Технический директор (CTO)", bio: "12 лет в разработке ПО и продуктов. Основатель нескольких стартапов." },
+      { name: "ZZZ", role: "Руководитель отдела брокериджа", bio: "Сертифицированный бизнес-брокер с 8-летним опытом. Эксперт в сфере ресторанов и розницы." }
     ],
     ctaTitle: "Готовы открыть новую главу для вашего бизнеса?",
     ctaSub: "Изучите проверенные объявления или продайте свой бизнес с профессиональной поддержкой.",
@@ -230,7 +230,6 @@ function renderAbout() {
   document.getElementById("team-sub").textContent = c.teamSub;
   document.getElementById("team-grid").innerHTML = c.team.map(m => `
     <div class="team-card">
-      <img src="${m.img}" alt="${m.name}" loading="lazy">
       <h4>${m.name}</h4>
       <div class="team-role">${m.role}</div>
       <p class="team-bio">${m.bio}</p>
