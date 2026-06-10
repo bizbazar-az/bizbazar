@@ -737,3 +737,32 @@ html[data-theme="dark"] .bb-quick-btn { background: var(--bg-hover); border-colo
 html[data-theme="dark"] .bb-chat-input { background: var(--bg); color: var(--text); border-color: var(--border); }
 html[data-theme="dark"] .bb-chat-input:focus { background: var(--bg-soft); }
 html[data-theme="dark"] #bb-chat-window { background: #111827; box-shadow: 0 24px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06); }
+
+/* =====================================================
+   Dynamic header effects
+   ===================================================== */
+
+.site-header { transition: box-shadow .25s ease; }
+.header-inner { transition: height .25s ease; }
+.logo-mark { transition: width .25s ease, height .25s ease, font-size .25s ease; }
+.site-header.scrolled { box-shadow: 0 6px 24px rgba(15,23,42,.10); }
+.site-header.scrolled .header-inner { height: 56px; }
+.site-header.scrolled .logo-mark { width: 30px; height: 30px; font-size: 14px; }
+
+/* Reading progress bar */
+.scroll-progress { position: absolute; left: 0; bottom: -1px; height: 2.5px; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-vivid)); z-index: 41; border-radius: 0 3px 3px 0; pointer-events: none; }
+
+/* Animated gold underline on nav links */
+.nav a { position: relative; }
+.nav a::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 1px; height: 2px; background: linear-gradient(90deg, var(--accent-vivid), var(--accent)); border-radius: 2px; transform: scaleX(0); transform-origin: left center; transition: transform .22s ease; }
+.nav a:hover::after, .nav a.active::after { transform: scaleX(1); }
+.nav a:hover { background: transparent; }
+.nav a.active { background: transparent; }
+
+/* CTA button shine on hover */
+.header-actions .btn-primary { position: relative; overflow: hidden; }
+.header-actions .btn-primary::before { content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%; background: linear-gradient(105deg, transparent, rgba(255,255,255,.25), transparent); transform: skewX(-20deg); transition: left .45s ease; }
+.header-actions .btn-primary:hover::before { left: 130%; }
+
+/* Dark mode adjustments */
+html[data-theme="dark"] .site-header.scrolled { box-shadow: 0 6px 24px rgba(0,0,0,.55); }
