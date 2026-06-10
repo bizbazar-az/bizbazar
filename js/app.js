@@ -922,6 +922,7 @@ function toggleDarkMode() {
 function renderHeader(activePage) {
   return `
   <header class="site-header">
+    <div class="scroll-progress" id="scroll-progress"></div>
     <div class="container header-inner">
       <a class="logo" href="index.html">
         <span class="logo-mark">B</span>
@@ -1079,6 +1080,19 @@ function mountLayout(activePage) {
   mountCookiesBanner();
   // wire auth state into header
   _mountHeaderAuth();
+
+  // Dynamic header: shrink + shadow on scroll, reading progress bar
+  const hdr = document.querySelector(".site-header");
+  const prog = document.getElementById("scroll-progress");
+  const onScroll = () => {
+    if (hdr) hdr.classList.toggle("scrolled", window.scrollY > 24);
+    if (prog) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      prog.style.width = (max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0) + "%";
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
 function _mountHeaderAuth() {
