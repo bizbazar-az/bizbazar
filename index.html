@@ -266,7 +266,11 @@
       const fpFeatured = franchises.filter(f => f.featured).slice(0, 3);
       fpGrid.innerHTML = fpFeatured.map(f => `
         <a class="listing-card" href="franchises.html" style="text-decoration:none;">
-          <div class="listing-image" style="background:linear-gradient(135deg,#fdf6e3,#f5e6a8);font-size:64px;color:var(--primary);">${f.logo}</div>
+          <div class="listing-image" style="position:relative;background:linear-gradient(135deg,#fdf6e3,#f5e6a8);overflow:hidden;">
+            <span style="position:absolute;font-size:64px;opacity:.4;">${f.logo}</span>
+            <img src="${getListingThumb({id: f.id, category: f.category})}" alt="${f.brand}" loading="lazy" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <span style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,.95);border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 8px rgba(0,0,0,.15);">${f.logo}</span>
+          </div>
           <div class="listing-body">
             <div class="verified-badge">✓ ${t("verified")}</div>
             <div class="listing-cat">${catLabel(catById[f.category])}</div>
