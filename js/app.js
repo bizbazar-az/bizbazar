@@ -947,7 +947,6 @@ function renderHeader(activePage) {
           <button data-lang="ru">RU</button>
         </div>
         <div id="header-auth-desktop" style="display:flex;align-items:center;gap:8px">
-          <a href="auth.html" class="btn btn-outline btn-sm" id="hdr-signin-desktop" data-i18n="cta_signin" style="display:none"></a>
           <div class="hdr-user-wrap" id="hdr-profile-desktop" style="display:none;position:relative">
             <button class="header-user-btn hdr-user-trigger" id="hdr-user-trigger-desktop"
               onclick="var w=document.getElementById('hdr-profile-desktop');w.classList.toggle('open');event.stopPropagation()"
@@ -1008,7 +1007,6 @@ function renderHeader(activePage) {
         </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <a href="auth.html" class="btn btn-outline btn-sm" id="hdr-signin-mobile" data-i18n="cta_signin" style="display:none"></a>
         <a href="profile.html" class="header-user-btn" id="hdr-profile-mobile" style="display:none;align-items:center;gap:6px;text-decoration:none">
           <span class="header-avatar" id="hdr-avatar-mobile" style="width:28px;height:28px;font-size:11px">?</span>
           <span id="hdr-user-name-mobile" style="font-size:13px;font-weight:600;color:var(--text);max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
@@ -1105,7 +1103,7 @@ function _mountHeaderAuth() {
       const avatarMobile   = document.getElementById("hdr-avatar-mobile");
       const nameMobile     = document.getElementById("hdr-user-name-mobile");
 
-      if (!signinDesktop) return;
+      if (!profileDesktop) return;
 
       if (user) {
         if (signinDesktop)  signinDesktop.style.display  = "none";
