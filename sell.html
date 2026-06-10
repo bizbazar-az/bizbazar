@@ -174,9 +174,9 @@
     const name     = getLang() === "az" ? plan.name_az     : plan.name_en;
     const duration = getLang() === "az" ? plan.duration_az : plan.duration_en;
     const features = getLang() === "az" ? plan.features_az : plan.features_en;
-    const priceStr = plan.price_azn === 0
-      ? t("plan_free_price")
-      : fmtAZN(plan.price_azn);
+    const priceStr = plan.old_price_azn
+      ? `<span style="text-decoration:line-through;opacity:.55;font-size:.55em;font-weight:600;margin-right:8px">${plan.old_price_azn} AZN</span>0 AZN`
+      : (plan.price_azn === 0 ? t("plan_free_price") : fmtAZN(plan.price_azn));
     const highlightClass = plan.highlight ? " highlight" : "";
     const badge = plan.highlight
       ? `<div class="plan-badge" data-i18n="badge_featured"></div>` : "";
