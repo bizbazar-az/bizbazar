@@ -33,10 +33,11 @@
   },
   {
     "id": "featured",
-    "name_az": "Seçilmiş",
-    "name_en": "Featured",
-    "name_ru": "Выделенное",
-    "price_azn": 49,
+    "name_az": "Plus",
+    "name_en": "Plus",
+    "name_ru": "Plus",
+    "price_azn": 0,
+    "old_price_azn": 49,
     "duration_az": "30 gün",
     "duration_en": "30 days",
     "duration_ru": "30 дней",
@@ -65,40 +66,5 @@
       "Аналитика (просмотры, запросы)"
     ],
     "highlight": true
-  },
-  {
-    "id": "premium",
-    "name_az": "Premium",
-    "name_en": "Premium",
-    "name_ru": "Премиум",
-    "price_azn": 199,
-    "duration_az": "60 gün + peşəkar dəstək",
-    "duration_en": "60 days + pro support",
-    "duration_ru": "60 дней + проф. поддержка",
-    "features_az": [
-      "Seçilmiş planın bütün üstünlükləri",
-      "Peşəkar broker dəstəyi",
-      "Pulsuz biznes qiymətləndirmə hesabatı",
-      "Email kampaniyası 5,000+ alıcıya",
-      "NDA və hüquqi sənəd hazırlanması",
-      "Daimi WhatsApp menecer dəstəyi"
-    ],
-    "features_en": [
-      "Everything in Featured",
-      "Dedicated broker support",
-      "Free business valuation report",
-      "Email blast to 5,000+ buyers",
-      "NDA & legal docs prepared for you",
-      "Dedicated WhatsApp account manager"
-    ],
-    "features_ru": [
-      "Всё из Выделенного",
-      "Персональный брокер",
-      "Бесплатный отчёт по оценке бизнеса",
-      "Email-рассылка 5,000+ покупателям",
-      "Подготовка NDA и юр. документов",
-      "Персональный менеджер в WhatsApp"
-    ],
-    "highlight": false
   }
 ]
