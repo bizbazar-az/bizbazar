@@ -1,9 +1,9 @@
 [
   {
     "id": "free",
-    "name_az": "Pulsuz",
-    "name_en": "Free",
-    "name_ru": "Бесплатный",
+    "name_az": "Standart",
+    "name_en": "Standard",
+    "name_ru": "Стандарт",
     "price_azn": 0,
     "duration_az": "müddətsiz",
     "duration_en": "no time limit",
