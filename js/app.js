@@ -1280,7 +1280,7 @@ function listingCardHTML(l, categoriesById) {
   const thumb = getListingThumb(l);
   const saved = isFavorite(l.id);
   const waBtn = l.whatsapp && l.phone
-    ? `<a href="https://wa.me/994502009088" target="_blank" onclick="event.preventDefault();event.stopPropagation();window.open(this.href,'_blank')" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:white;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;text-decoration:none;align-self:flex-start;margin-top:6px;">💬 WhatsApp</a>`
+    ? `<button type="button" onclick="event.preventDefault();event.stopPropagation();window.open('https://wa.me/994502009088','_blank')" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:white;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;font-family:inherit;align-self:flex-start;margin-top:6px;">💬 WhatsApp</button>`
     : "";
   return `
   <a class="listing-card" href="listing.html?id=${l.id}" style="display:flex;flex-direction:column;background:white;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;text-decoration:none;color:#0f172a;height:100%;box-shadow:0 1px 3px rgba(0,0,0,.04);">
