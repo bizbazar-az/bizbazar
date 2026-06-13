@@ -366,7 +366,9 @@ if ('serviceWorker' in navigator) {
     document.title = name + " — BizBazar.az";
 
     const brokerListings = listings.filter(l => l.broker_id === broker.id);
-    const stars = "★".repeat(Math.floor(broker.rating)) + "☆".repeat(5 - Math.floor(broker.rating));
+    const hasRating = (broker.reviews || 0) > 0 && (broker.rating || 0) > 0;
+    const newLabel = lang === "en" ? "New broker" : lang === "ru" ? "Новый брокер" : "Yeni broker";
+    const stars = hasRating ? "★".repeat(Math.floor(broker.rating)) + "☆".repeat(5 - Math.floor(broker.rating)) : "";
     const memberSince = new Date(broker.member_since + "-01")
       .toLocaleDateString(c.locale, { month: "long", year: "numeric" });
 
@@ -401,7 +403,7 @@ if ('serviceWorker' in navigator) {
               <div class="bp-meta-row">
                 <span>📍 ${broker.city}</span>
                 <span class="dot">·</span>
-                <span><span class="bp-rating-stars">${stars}</span> <span class="bp-rating-num">${broker.rating.toFixed(1)}</span> <span style="color:var(--text-muted)">(${broker.reviews} ${c.reviews})</span></span>
+                ${hasRating ? `<span><span class="bp-rating-stars">${stars}</span> <span class="bp-rating-num">${broker.rating.toFixed(1)}</span> <span style="color:var(--text-muted)">(${broker.reviews} ${c.reviews})</span></span>` : `<span style="color:var(--text-muted)">${newLabel}</span>`}
               </div>
             </div>
           </div>

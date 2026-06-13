@@ -747,7 +747,8 @@ if ('serviceWorker' in navigator) {
   // Compute stats
   const totalDeals = brokers.reduce((s, b) => s + (b.deals_closed || 0), 0);
   const totalVolume = brokers.reduce((s, b) => s + (b.total_volume_azn || 0), 0);
-  const avgRating = brokers.reduce((s, b) => s + (b.rating || 0), 0) / brokers.length;
+  const ratedBrokers = brokers.filter(b => (b.reviews || 0) > 0 && (b.rating || 0) > 0);
+  const avgRating = ratedBrokers.length ? ratedBrokers.reduce((s, b) => s + b.rating, 0) / ratedBrokers.length : 0;
 
   document.getElementById("stat-brokers").textContent = brokers.length;
   document.getElementById("stat-deals").textContent = totalDeals + "+";
@@ -802,7 +803,9 @@ if ('serviceWorker' in navigator) {
     const name = lang === "ru" && b.name_ru ? b.name_ru : b.name;
     const bio = lang === "en" ? b.bio_en : lang === "ru" ? b.bio_ru : b.bio_az;
     const typeLabels = TYPE_LABELS[lang] || TYPE_LABELS.az;
-    const stars = "★".repeat(Math.floor(b.rating)) + "☆".repeat(5 - Math.floor(b.rating));
+    const hasRating = (b.reviews || 0) > 0 && (b.rating || 0) > 0;
+    const newLabel = lang === "en" ? "New" : lang === "ru" ? "Новый" : "Yeni";
+    const stars = hasRating ? "★".repeat(Math.floor(b.rating)) + "☆".repeat(5 - Math.floor(b.rating)) : "";
 
     const specialtyPills = b.specialties.slice(0, 4).map(sid => {
       const cat = catById[sid];
@@ -834,8 +837,8 @@ if ('serviceWorker' in navigator) {
       <div class="br-rating-block">
         <div class="br-rating-cell">
           <div class="lbl">${cc.rating_lbl}</div>
-          <div class="val">${b.rating.toFixed(1)}</div>
-          <div class="stars-mini">${stars}</div>
+          <div class="val">${hasRating ? b.rating.toFixed(1) : newLabel}</div>
+          <div class="stars-mini">${hasRating ? stars : "—"}</div>
         </div>
         <div class="br-rating-cell">
           <div class="lbl">${cc.deals_lbl}</div>
