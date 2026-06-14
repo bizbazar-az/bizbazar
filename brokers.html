@@ -915,7 +915,9 @@ if ('serviceWorker' in navigator) {
       case "response": list.sort((a, b) => a.response_time_hours - b.response_time_hours); break;
       default:
         list.sort((a, b) => {
-          if (!!a.pin !== !!b.pin) return a.pin ? -1 : 1;
+          const pa = (typeof a.pin === "number") ? a.pin : (a.pin ? 1 : Infinity);
+          const pb = (typeof b.pin === "number") ? b.pin : (b.pin ? 1 : Infinity);
+          if (pa !== pb) return pa - pb;
           if (a.featured !== b.featured) return b.featured ? 1 : -1;
           return b.rating - a.rating;
         });
