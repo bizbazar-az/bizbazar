@@ -82,7 +82,7 @@
       gap: 16px; margin-top: 28px;
     }
     .bp-stat {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 14px; padding: 18px;
     }
     .bp-stat .lbl {
@@ -110,7 +110,7 @@
 
     /* sections */
     .bp-section {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 16px; padding: 28px;
       margin-bottom: 20px;
     }
@@ -145,7 +145,7 @@
 
     /* contact card (sidebar) */
     .bp-contact-card {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 16px; padding: 24px;
       box-shadow: 0 4px 16px rgba(0,0,0,.04);
     }
@@ -182,7 +182,7 @@
       box-shadow: 0 6px 16px rgba(99,102,241,.40);
     }
     .bp-btn-email {
-      background: #f1f5f9; color: var(--text);
+      background: var(--surface-3); color: var(--text);
       border: 1.5px solid var(--border);
     }
     .bp-btn-email:hover { background: #e2e8f0; }
@@ -205,7 +205,7 @@
       letter-spacing: -.01em;
     }
     .bp-empty-listings {
-      background: #f8fafc; border-radius: 12px;
+      background: var(--surface-2); border-radius: 12px;
       padding: 40px; text-align: center; color: var(--text-muted);
     }
 
@@ -466,37 +466,4 @@ if ('serviceWorker' in navigator) {
                   ? `<div class="listing-grid">${brokerListings.map(l => listingCardHTML(l, catById)).join("")}</div>`
                   : `<div class="bp-empty-listings">
                       <p style="margin:0 0 12px">${c.no_listings}</p>
-                      <a href="listings.html" class="bp-btn bp-btn-phone" style="display:inline-flex;text-decoration:none;padding:10px 20px;">${c.browse_listings}</a>
-                     </div>`
-                }
-              </div>
-            </div>
-
-            <aside class="bp-sidebar">
-              <div class="bp-contact-card">
-                <div class="bp-contact-title">${c.contact}</div>
-                <div class="bp-contact-btns">
-                  <a href="https://wa.me/${waPhone}" target="_blank" rel="noopener" class="bp-btn bp-btn-wa">💬 WhatsApp</a>
-                  <a href="tel:${broker.phone}" class="bp-btn bp-btn-phone">📞 ${broker.phone}</a>
-                  ${broker.email ? `<a href="mailto:${broker.email}" class="bp-btn bp-btn-email">${c.email_send}</a>` : ""}
-                </div>
-                <div class="bp-contact-info">
-                  <div class="row"><span class="lbl">${c.city}</span><span class="val">${broker.city}</span></div>
-                  <div class="row"><span class="lbl">${c.response}</span><span class="val">${broker.response_time_hours} ${c.hours}</span></div>
-                  <div class="row" style="align-items:flex-start"><span class="lbl">${c.langs}</span><span class="val"><div class="bp-langs">${langsHTML}</div></span></div>
-                </div>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>`;
-
-    applyI18n();
-  }
-
-  render();
-  window.addEventListener("langchange", render);
-})();
-</script>
-</body>
-</html>
+                      <a href="listings.html" class="bp-btn bp-btn-phone" style="display:inline-flex;text-decoration:none;padding:10px 20px;">$

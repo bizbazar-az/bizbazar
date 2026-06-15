@@ -12,7 +12,7 @@
   <script>(function(){if(localStorage.getItem('bb_darkmode')==='1')document.documentElement.setAttribute('data-theme','dark')})()</script>
   <style>
     .partner-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 28px 0 8px; }
-    .partner-tab { border: 1.5px solid var(--border); background: white; border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-family: inherit; transition: all .15s; }
+    .partner-tab { border: 1.5px solid var(--border); background: var(--surface); border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; font-family: inherit; transition: all .15s; }
     .partner-tab.active { background: var(--primary); border-color: var(--primary); color: white; }
     .partner-tab:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
     .gp-lp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0 8px; }
@@ -20,7 +20,7 @@
     .gp-lp-card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
     .gp-lp-card p { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6; }
     .partner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin: 28px 0 60px; }
-    .partner-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius-xl); padding: 26px; display: flex; flex-direction: column; gap: 12px; transition: all .18s; }
+    .partner-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-xl); padding: 26px; display: flex; flex-direction: column; gap: 12px; transition: all .18s; }
     .partner-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .ptype-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; letter-spacing: .05em; text-transform: uppercase; align-self: flex-start; }
     .ptype-badge.gp { background: var(--accent-soft); color: var(--accent-dark); border: 1px solid rgba(201,162,39,.35); }

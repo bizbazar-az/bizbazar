@@ -21,12 +21,12 @@
   <link rel="stylesheet" href="css/styles.css">
   <style>
     .franchise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; }
-    .franchise-card { background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: all .2s ease; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+    .franchise-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: all .2s ease; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
     .franchise-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
     .franchise-card.featured { border-color: var(--accent); border-width: 2px; }
     .franchise-card.featured::before { content: "★ FEATURED"; position: absolute; top: 12px; right: -32px; background: var(--accent); color: var(--primary); font-size: 10px; font-weight: 800; padding: 4px 36px; transform: rotate(35deg); letter-spacing: 1px; }
     .franchise-head { display: flex; align-items: center; gap: 14px; }
-    .franchise-logo { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, #fdf6e3, #f5e6a8); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+    .franchise-logo { width: 56px; height: 56px; border-radius: 14px; background: var(--tile-gold); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
     .franchise-brand { font-weight: 800; font-size: 20px; color: var(--primary); margin: 0; }
     .franchise-est { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .franchise-desc { color: var(--text-muted); font-size: 14px; line-height: 1.55; margin: 0; }
@@ -43,8 +43,8 @@
     .franchise-branches-bar { height: 6px; background: var(--border-light); border-radius: 3px; overflow: hidden; margin-top: 4px; }
     .franchise-branches-fill { height: 100%; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%); transition: width 0.4s; }
     .franchise-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-    .franchise-filters select, .franchise-filters input { padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 999px; font-size: 13px; font-weight: 500; background: white; }
-    .hero-franchise { background: linear-gradient(180deg, #fdf6e3 0%, #ffffff 100%); padding: 56px 0 40px; }
+    .franchise-filters select, .franchise-filters input { padding: 9px 14px; border: 1.5px solid var(--border); border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--surface); }
+    .hero-franchise { background: var(--hero-gold); padding: 56px 0 40px; }
     .hero-franchise h1 { font-size: 40px; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.02em; }
     .hero-franchise p { color: var(--text-muted); font-size: 17px; max-width: 640px; margin: 0; }
     .franchise-stats-row { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }

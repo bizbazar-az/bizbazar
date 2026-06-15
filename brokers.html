@@ -56,7 +56,7 @@
     }
     .br-trust-icon {
       width: 36px; height: 36px; border-radius: 10px;
-      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      background: var(--tile-indigo);
       display: flex; align-items: center; justify-content: center;
       font-size: 16px; flex-shrink: 0;
     }
@@ -65,7 +65,7 @@
       gap: 20px; margin-top: 36px;
     }
     .br-stat {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 14px; padding: 20px;
       transition: transform .2s ease, box-shadow .2s ease;
     }
@@ -78,7 +78,7 @@
 
     /* ==== SEARCH + FILTERS ==== */
     .br-search-bar {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 16px; padding: 14px;
       display: flex; gap: 10px; flex-wrap: wrap;
       margin-bottom: 16px;
@@ -87,16 +87,16 @@
     .br-search-input {
       flex: 2 1 280px;
       padding: 11px 16px; border: 1.5px solid var(--border);
-      border-radius: 10px; font-size: 14px; background: #fafafa;
+      border-radius: 10px; font-size: 14px; background: var(--surface-2);
       transition: all .15s ease;
     }
     .br-search-input:focus {
-      outline: none; border-color: #6366f1; background: white;
+      outline: none; border-color: #6366f1; background: var(--surface);
       box-shadow: 0 0 0 3px rgba(99,102,241,.12);
     }
 
     .br-filter-bar {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 16px; padding: 14px;
       display: flex; gap: 10px; flex-wrap: wrap;
       margin-bottom: 28px;
@@ -105,12 +105,12 @@
     .br-filter-bar select {
       padding: 10px 14px; border: 1.5px solid var(--border);
       border-radius: 10px; font-size: 14px; font-weight: 500;
-      background: #fafafa; cursor: pointer;
+      background: var(--surface-2); cursor: pointer;
       flex: 1 1 160px; transition: all .15s ease;
     }
-    .br-filter-bar select:hover { border-color: #6366f1; background: white; }
+    .br-filter-bar select:hover { border-color: #6366f1; background: var(--surface); }
     .br-filter-bar select:focus {
-      outline: none; border-color: #6366f1; background: white;
+      outline: none; border-color: #6366f1; background: var(--surface);
       box-shadow: 0 0 0 3px rgba(99,102,241,.12);
     }
 
@@ -129,7 +129,7 @@
     }
 
     .br-card {
-      background: white; border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 18px; padding: 28px;
       display: flex; flex-direction: column; gap: 16px;
       position: relative; overflow: hidden;
@@ -142,7 +142,7 @@
     }
     .br-card.featured {
       border: 2px solid #6366f1;
-      background: linear-gradient(180deg, #fafaff 0%, #ffffff 60%);
+      background: var(--surface-raised);
     }
     .br-card.featured::after {
       content: "★ Premium Broker";
@@ -288,7 +288,7 @@
       border: 1.5px solid var(--border);
       border-radius: 10px;
       display: inline-flex; align-items: center; justify-content: center;
-      background: white; transition: all .15s ease;
+      background: var(--surface); transition: all .15s ease;
       font-size: 16px; text-decoration: none; color: var(--text);
     }
     .br-icon-btn.wa { color: #25d366; border-color: #25d366; }
@@ -298,7 +298,7 @@
     /* empty state */
     .br-empty {
       text-align: center; padding: 80px 20px;
-      background: white; border: 2px dashed var(--border);
+      background: var(--surface); border: 2px dashed var(--border);
       border-radius: 16px;
     }
     .br-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
@@ -347,7 +347,7 @@
       display: flex; flex-direction: column; gap: 12px;
     }
     .br-cta-actions .btn {
-      background: white; color: #4f46e5;
+      background: var(--surface); color: #4f46e5;
       font-weight: 700; padding: 14px 24px;
       font-size: 15px; border: none;
       box-shadow: 0 4px 16px rgba(0,0,0,.20);
@@ -1017,48 +1017,3 @@ if ('serviceWorker' in navigator) {
     document.getElementById("breg-submit").textContent = r.submit;
     const sel = document.getElementById("breg-type");
     sel.innerHTML = `<option value="individual">${r.type_ind}</option><option value="agency">${r.type_ag}</option>`;
-    return r;
-  }
-  let reg = applyReg();
-  window.addEventListener("langchange", () => { reg = applyReg(); });
-
-  // CV attachment (optional, <= 5 MB)
-  let cvFile = null;
-  const cvInput = document.getElementById("breg-cv-input");
-  const cvName = document.getElementById("breg-cv-name");
-  const cvRemove = document.getElementById("breg-cv-remove");
-  document.getElementById("breg-cv-btn").addEventListener("click", () => cvInput.click());
-  cvInput.addEventListener("change", () => {
-    const f = cvInput.files[0];
-    cvInput.value = "";
-    if (!f) return;
-    if (f.size > 5 * 1024 * 1024) { alert(reg.cv_size); return; }
-    cvFile = f;
-    cvName.textContent = f.name + " (" + Math.round(f.size / 1024) + " KB)";
-    cvRemove.style.display = "inline";
-  });
-  cvRemove.addEventListener("click", () => {
-    cvFile = null; cvName.textContent = ""; cvRemove.style.display = "none";
-  });
-
-  const form = document.getElementById("broker-form");
-  // Native POST to FormSubmit (supports file attachments); _next redirects back here
-  form.addEventListener("submit", () => {
-    const dt = new DataTransfer();
-    if (cvFile) dt.items.add(cvFile);
-    cvInput.files = dt.files;
-    document.getElementById("breg-submit").disabled = true;
-  });
-
-  // Show success message after FormSubmit redirects back
-  if (new URLSearchParams(location.search).get("breg_sent") === "1") {
-    form.style.display = "none";
-    const ok = document.getElementById("breg-success");
-    ok.textContent = reg.sent;
-    ok.style.display = "block";
-    setTimeout(() => ok.scrollIntoView({ behavior: "smooth", block: "center" }), 400);
-  }
-})();
-</script>
-</body>
-</html>

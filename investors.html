@@ -80,7 +80,7 @@
       width: 36px;
       height: 36px;
       border-radius: 10px;
-      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      background: var(--tile-indigo);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,7 +94,7 @@
       margin-top: 36px;
     }
     .inv-stat {
-      background: white;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 20px;
@@ -116,7 +116,7 @@
 
     /* ====== FILTERS ====== */
     .inv-filter-bar {
-      background: white;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 14px;
@@ -132,13 +132,13 @@
       border-radius: 10px;
       font-size: 14px;
       font-weight: 500;
-      background: #fafafa;
+      background: var(--surface-2);
       cursor: pointer;
       flex: 1 1 160px;
       transition: all .15s ease;
     }
-    .inv-filter-bar select:hover { border-color: #6366f1; background: white; }
-    .inv-filter-bar select:focus { outline: none; border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99,102,241,.12); }
+    .inv-filter-bar select:hover { border-color: #6366f1; background: var(--surface); }
+    .inv-filter-bar select:focus { outline: none; border-color: #6366f1; background: var(--surface); box-shadow: 0 0 0 3px rgba(99,102,241,.12); }
 
     .inv-results-bar {
       display: flex;
@@ -159,7 +159,7 @@
     }
 
     .inv-card {
-      background: white;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 18px;
       padding: 28px;
@@ -177,7 +177,7 @@
     }
     .inv-card.featured {
       border: 2px solid #6366f1;
-      background: linear-gradient(180deg, #fafaff 0%, #ffffff 60%);
+      background: var(--surface-raised);
     }
     .inv-card.featured::after {
       content: "★ Premium";
@@ -382,7 +382,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: white;
+      background: var(--surface);
       transition: all .15s ease;
       font-size: 18px;
       text-decoration: none;
@@ -398,7 +398,7 @@
     .inv-empty {
       text-align: center;
       padding: 80px 20px;
-      background: white;
+      background: var(--surface);
       border: 2px dashed var(--border);
       border-radius: 16px;
     }
@@ -475,7 +475,7 @@
       gap: 12px;
     }
     .inv-cta-actions .btn {
-      background: white;
+      background: var(--surface);
       color: #4f46e5;
       font-weight: 700;
       padding: 14px 24px;
