@@ -1310,7 +1310,7 @@ function listingCardHTML(l, categoriesById) {
     ? `<div style="position:absolute;top:12px;left:12px;background:#f59e0b;color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em;z-index:3;">${t("badge_featured")}</div>`
     : "";
   const verifiedBadge = l.verified
-    ? `<div style="display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#16a34a;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;align-self:flex-start;">✓ ${t("verified")}</div>`
+    ? `<div style="display:inline-flex;align-items:center;gap:4px;background:var(--chip-green-bg,#dcfce7);color:var(--chip-green-text,#16a34a);font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;align-self:flex-start;">✓ ${t("verified")}</div>`
     : "";
   const thumb = getListingThumb(l);
   const saved = isFavorite(l.id);
@@ -1318,8 +1318,8 @@ function listingCardHTML(l, categoriesById) {
     ? `<button type="button" onclick="event.preventDefault();event.stopPropagation();window.open('https://wa.me/994502009088','_blank')" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:white;border:none;cursor:pointer;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;font-family:inherit;align-self:flex-start;margin-top:6px;">💬 WhatsApp</button>`
     : "";
   return `
-  <a class="listing-card" href="listing.html?id=${l.id}" style="display:flex;flex-direction:column;background:white;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;text-decoration:none;color:#0f172a;height:100%;box-shadow:0 1px 3px rgba(0,0,0,.04);">
-    <div style="position:relative;width:100%;height:180px;background:linear-gradient(135deg,#fef3c7,#fed7aa);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
+  <a class="listing-card" href="listing.html?id=${l.id}" style="display:flex;flex-direction:column;background:var(--surface);border-radius:14px;overflow:hidden;border:1px solid var(--border);text-decoration:none;color:var(--text);height:100%;box-shadow:0 1px 3px rgba(0,0,0,.04);">
+    <div style="position:relative;width:100%;height:180px;background:var(--listing-thumb,linear-gradient(135deg,#fef3c7,#fed7aa));display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
       <span style="position:absolute;font-size:72px;opacity:.45;z-index:0;">${icon}</span>
       <img src="${thumb}" alt="${titleEsc}" loading="lazy" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;">
       ${featuredBadge}
@@ -1327,16 +1327,16 @@ function listingCardHTML(l, categoriesById) {
     </div>
     <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;">
       ${verifiedBadge}
-      <div style="font-size:11px;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:.04em;">${catLabel(cat)}</div>
-      <h3 style="font-size:16px;font-weight:700;margin:0;color:#0f172a;line-height:1.35;">${title}</h3>
-      <div style="font-size:13px;color:#64748b;">📍 ${locDistrict(l.district)}, ${locCity(l.city)}</div>
-      <div style="display:flex;gap:10px;font-size:12px;color:#64748b;flex-wrap:wrap;">
+      <div style="font-size:11px;font-weight:600;color:var(--card-cat,#2563eb);text-transform:uppercase;letter-spacing:.04em;">${catLabel(cat)}</div>
+      <h3 style="font-size:16px;font-weight:700;margin:0;color:var(--text);line-height:1.35;">${title}</h3>
+      <div style="font-size:13px;color:var(--text-muted);">📍 ${locDistrict(l.district)}, ${locCity(l.city)}</div>
+      <div style="display:flex;gap:10px;font-size:12px;color:var(--text-muted);flex-wrap:wrap;">
         <span>📐 ${fmtNum(l.area_m2)} m²</span>
         <span>👥 ${l.staff_count}</span>
         <span>📅 ${l.operating_years} ${t("listing_meta_years")}</span>
       </div>
-      ${l.monthly_profit_azn ? `<div style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px;align-self:flex-start;">💰 ${t("detail_profit")}: ${fmtAZN(l.monthly_profit_azn)}</div>` : ""}
-      <div style="font-size:20px;font-weight:800;color:#0f172a;margin-top:auto;padding-top:10px;border-top:1px solid #f1f5f9;">${fmtAZN(l.price_azn)}<span style="font-size:12px;font-weight:500;color:#64748b;margin-left:4px;">${fmtUSD(l.price_azn)}</span></div>
+      ${l.monthly_profit_azn ? `<div style="display:inline-flex;align-items:center;gap:6px;background:var(--profit-bg,#f0fdf4);border:1px solid var(--profit-border,#bbf7d0);color:var(--profit-text,#15803d);font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px;align-self:flex-start;">💰 ${t("detail_profit")}: ${fmtAZN(l.monthly_profit_azn)}</div>` : ""}
+      <div style="font-size:20px;font-weight:800;color:var(--text);margin-top:auto;padding-top:10px;border-top:1px solid var(--border);">${fmtAZN(l.price_azn)}<span style="font-size:12px;font-weight:500;color:var(--text-muted);margin-left:4px;">${fmtUSD(l.price_azn)}</span></div>
       ${waBtn}
     </div>
   </a>`;
