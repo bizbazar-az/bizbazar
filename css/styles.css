@@ -21,6 +21,14 @@
   --bg:             #ffffff;
   --bg-soft:        #f9fafb;
   --bg-hover:       #f3f4f6;
+  /* Theme-aware surfaces (flip automatically in dark mode) */
+  --surface:        #ffffff;
+  --surface-2:      #fafafa;
+  --surface-3:      #f1f5f9;
+  --surface-raised: linear-gradient(180deg, #fafaff 0%, #ffffff 60%);
+  --tile-indigo:    linear-gradient(135deg, #eef2ff, #e0e7ff);
+  --tile-gold:      linear-gradient(135deg, #fdf6e3, #f5e6a8);
+  --hero-gold:      linear-gradient(180deg, #fdf6e3 0%, #ffffff 100%);
   --success:        #10b981;
   --danger:         #ef4444;
   --warning:        #f59e0b;
@@ -629,6 +637,21 @@ html[data-theme="dark"] {
   --border:         #374151;
   --border-light:   #1f2937;
   --primary-muted:  rgba(45,63,110,.30);
+  --surface:        #1f2937;
+  --surface-2:      #161f2e;
+  --surface-3:      #2a3340;
+  --surface-raised: linear-gradient(180deg, #243044 0%, #1f2937 60%);
+  --tile-indigo:    linear-gradient(135deg, #1e2a4a, #233156);
+  --tile-gold:      linear-gradient(135deg, #2a2416, #3a3018);
+  --hero-gold:      linear-gradient(180deg, #1c1810 0%, #111827 100%);
+  /* Listing-card accents (consumed by JS-rendered cards) */
+  --listing-thumb: linear-gradient(135deg, #1a2035, #2a2416);
+  --card-cat:       #93b4f8;
+  --profit-bg:      #0f2417;
+  --profit-border:  #1c5135;
+  --profit-text:    #4ade80;
+  --chip-green-bg:  #0f2417;
+  --chip-green-text:#4ade80;
   --shadow-xs:      0 1px 2px rgba(0,0,0,.40);
   --shadow-sm:      0 2px 6px rgba(0,0,0,.50);
   --shadow:         0 4px 16px rgba(0,0,0,.55);
@@ -737,6 +760,44 @@ html[data-theme="dark"] .bb-quick-btn { background: var(--bg-hover); border-colo
 html[data-theme="dark"] .bb-chat-input { background: var(--bg); color: var(--text); border-color: var(--border); }
 html[data-theme="dark"] .bb-chat-input:focus { background: var(--bg-soft); }
 html[data-theme="dark"] #bb-chat-window { background: #111827; box-shadow: 0 24px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06); }
+
+/* Dark mode — colored tag / badge / pill chips (darken pastel surfaces, keep legible text) */
+html[data-theme="dark"] .bp-badge.type-broker,
+html[data-theme="dark"] .br-tag.broker,
+html[data-theme="dark"] .inv-tag.corporate,
+html[data-theme="dark"] .bm-icon,
+html[data-theme="dark"] .map-listing-item:hover,
+html[data-theme="dark"] .compare-table tbody tr:hover td { background: rgba(59,130,246,.16); color: #93c5fd; }
+
+html[data-theme="dark"] .bp-specialty-pill,
+html[data-theme="dark"] .br-specialty-pill,
+html[data-theme="dark"] .inv-sector-pill,
+html[data-theme="dark"] .inv-tag.individual,
+html[data-theme="dark"] .val-progress-step.done,
+html[data-theme="dark"] .val-radio-card.selected,
+html[data-theme="dark"] .inv-budget-bar,
+html[data-theme="dark"] .inv-icon-btn:hover { background: rgba(139,92,246,.18); color: #c4b5fd; }
+
+html[data-theme="dark"] .bp-badge.verified,
+html[data-theme="dark"] .bp-badge.license,
+html[data-theme="dark"] .br-tag.license,
+html[data-theme="dark"] .inv-tag.buy { background: rgba(16,185,129,.16); color: #6ee7b7; }
+
+html[data-theme="dark"] .bp-badge.type-agency,
+html[data-theme="dark"] .br-tag.agency,
+html[data-theme="dark"] .inv-tag.invest,
+html[data-theme="dark"] .map-item-icon.featured { background: rgba(245,158,11,.16); color: #fcd34d; }
+
+html[data-theme="dark"] .remove-btn { background: rgba(239,68,68,.18); color: #fca5a5; }
+html[data-theme="dark"] .remove-btn:hover { background: rgba(239,68,68,.30); color: #fca5a5; }
+
+/* Inline-styled pills in JS templates need !important to beat inline background */
+html[data-theme="dark"] .val-adj-value { background: rgba(139,92,246,.20) !important; color: #c4b5fd !important; }
+
+/* Light decorative borders that read too bright on dark */
+html[data-theme="dark"] .br-avatar { border-color: #2a3340; }
+html[data-theme="dark"] .br-card:hover { border-color: #4b5563; }
+html[data-theme="dark"] .save-btn { background: rgba(31,41,55,.92); color: #9ca3af; }
 
 /* =====================================================
    Dynamic header effects
